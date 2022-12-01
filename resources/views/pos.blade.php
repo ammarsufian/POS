@@ -521,7 +521,7 @@
                                 title: "Order",
                                 text: 'Order created successfully',
                             })
-                            // location.reload()
+                            location.reload()
                         },
                     });
                 })
