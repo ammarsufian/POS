@@ -59,7 +59,7 @@ class ProductController extends Controller
             'wholesale_price' => $request->get('wholesale_price'),
             'traders_price' => $request->get('traders_price'),
             'status' => $request->get('status'),
-            'cost_price' => $request->get('cost_price'),
+            'cost_price' => $request->get('cost_price',$product->cost_price),
 //            'expire_datetime' => $request->get('expiry_date')
         ]);
 
