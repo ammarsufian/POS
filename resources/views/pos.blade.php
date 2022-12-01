@@ -457,7 +457,7 @@
                             url: "{{config('app.url')}}/api/products?task=" + this.value,
                             headers: {'Accept': 'Application/json'},
                             success: function (data) {
-                                if (data.data.length) {
+                                if (data.data.length > 0 ) {
                                     const product = data.data[0]
                                     $('#product-name').text(product.name)
                                     $('#product-qty').text(product.quantity)
