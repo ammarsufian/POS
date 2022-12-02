@@ -25,6 +25,15 @@ class CustomerController extends Controller
 
     }
 
+    public function webIndex(Request $request)
+    {
+        $customers = Customer::query()->get();
+
+       return view('brandlist')->with([
+           'customers' => $customers
+       ]);
+
+    }
     public function store(Request $request)
     {
         $customer = Customer::create([

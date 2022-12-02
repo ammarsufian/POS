@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -40,8 +41,11 @@ Route::get('/pos', [PosController::class, 'index'])->name('pos');
 
 //Cart Management
 Route::post('/cart', [CartItemController::class, 'store'])->name('addItemToCart');
-Route::post('/order', [\App\Http\Controllers\OrderController::class, 'store'])->name('create-order');
 
+//print invoice route
+Route::get('/print/{order}', InvoiceController::class);
+
+Route::get('/customerlist',[CustomerController::class,'webIndex']);
 
 Route::get('/', function () {
     return view('signin');
@@ -91,9 +95,6 @@ Route::get('/barcode', function () {
 Route::get('/blankpage', function () {
     return view('blankpage');
 })->name('blankpage');
-Route::get('/brandlist', function () {
-    return view('brandlist');
-})->name('brandlist');
 Route::get('/calendar', function () {
     return view('calendar');
 })->name('calendar');

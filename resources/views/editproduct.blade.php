@@ -41,17 +41,25 @@
                                     <input type="number" name="price" value="{{$product->price}}" required>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>سعر الجملة</label>
                                     <input type="number" name="wholesale_price" value="{{$product->wholesale_price}}"
                                            required>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>سعر جملة الجملة</label>
                                     <input type="number" name="traders_price" value="{{$product->traders_price}}"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label> سعر التكلفه</label>
+                                    <input type="number" name="cost_price" value="{{$product->cost_price}}"
                                            required>
                                 </div>
                             </div>
@@ -64,42 +72,42 @@
                                     </select>
                                 </div>
                             </div>
+{{--                            <div class="col-lg-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label> Product Image</label>--}}
+{{--                                    <div class="image-upload">--}}
+{{--                                        <input type="file">--}}
+{{--                                        <div class="image-uploads">--}}
+{{--                                            <img src="{{ URL::asset('/assets/img/icons/upload.svg')}}" alt="img">--}}
+{{--                                            <h4>Drag and drop a file to upload</h4>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-12">--}}
+{{--                                <div class="product-list">--}}
+{{--                                    <ul class="row">--}}
+{{--                                        <li>--}}
+{{--                                            <div class="productviews">--}}
+{{--                                                <div class="productviewsimg">--}}
+{{--                                                    <img src="{{ URL::asset('/assets/img/icons/macbook.svg')}}"--}}
+{{--                                                         alt="img">--}}
+{{--                                                </div>--}}
+{{--                                                <div class="productviewscontent">--}}
+{{--                                                    <div class="productviewsname">--}}
+{{--                                                        <h2>macbookpro.jpg</h2>--}}
+{{--                                                        <h3>581kb</h3>--}}
+{{--                                                    </div>--}}
+{{--                                                    <a href="javascript:void(0);" class="hideset">x</a>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label> Product Image</label>
-                                    <div class="image-upload">
-                                        <input type="file">
-                                        <div class="image-uploads">
-                                            <img src="{{ URL::asset('/assets/img/icons/upload.svg')}}" alt="img">
-                                            <h4>Drag and drop a file to upload</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="product-list">
-                                    <ul class="row">
-                                        <li>
-                                            <div class="productviews">
-                                                <div class="productviewsimg">
-                                                    <img src="{{ URL::asset('/assets/img/icons/macbook.svg')}}"
-                                                         alt="img">
-                                                </div>
-                                                <div class="productviewscontent">
-                                                    <div class="productviewsname">
-                                                        <h2>macbookpro.jpg</h2>
-                                                        <h3>581kb</h3>
-                                                    </div>
-                                                    <a href="javascript:void(0);" class="hideset">x</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <button type="submit" class="btn btn-submit me-2">Update</button>
-                                <a href="{{url('productlist')}}" class="btn btn-cancel">Cancel</a>
+                                <button type="submit" class="btn btn-submit me-2">حفظ التغييرات</button>
+                                <a href="{{url('productlist')}}" class="btn btn-cancel">الغاء</a>
                             </div>
                         </div>
                     </form>

@@ -39,6 +39,9 @@ class OrderController extends Controller
         $customerCart->delete();
         Cache::forget('customer');
 
-        return response()->json(['success' => true]);
+        return response()->json([
+            'success' => true,
+            'data' => $order,
+        ]);
     }
 }

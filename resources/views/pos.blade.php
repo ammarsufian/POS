@@ -295,7 +295,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <a class="w-100 btn btn-primary" id="order-creation-button" >
+                                    <a class="w-100 btn btn-primary" id="order-creation-button">
                                         تاكيد الطلب
                                     </a>
                                 </form>
@@ -449,22 +449,23 @@
         <script async>
             const data = {}
             $(document).ready(function () {
-                $('#search').on('input', function () {
+                $('#search').on('change', function () {
                     if (this.value.length >= 10) {
-                        console.log(this.value)
                         $.ajax({
                             type: 'GET',
                             url: "{{config('app.url')}}/api/products?task=" + this.value,
                             headers: {'Accept': 'Application/json'},
                             success: function (data) {
-                                if (data.data.length > 0 ) {
+                                console.log(data.data)
+                                if (data.data.length > 0) {
                                     const product = data.data[0]
                                     $('#product-name').text(product.name)
                                     $('#product-qty').text(product.quantity)
                                     $('#product-id').val(product.id)
-
+                                    $('#inputMobileNumber').val(this.value)
+                                    $('#inputCityName').val('amman')
                                     $('#addToCartModal').modal('show')
-                                }else{
+                                } else {
                                     Swal.fire({
                                         icon: 'error',
                                         title: "المنتج غير معرف",
@@ -494,7 +495,7 @@
                 })
                 $('#order-creation-button').click(function () {
                     const itemCount = parseInt($('#cart-items-count').text());
-                    if(!itemCount){
+                    if (!itemCount) {
                         Swal.fire({
                             icon: 'error',
                             title: "الفاتوره فارغه",
@@ -503,7 +504,7 @@
                     }
 
                     const paymentMethod = $('#payment-method-select').find(":selected").val();
-                    if(!paymentMethod){
+                    if (!paymentMethod) {
                         Swal.fire({
                             icon: 'error',
                             title: "Payment Error",
@@ -514,26 +515,27 @@
                         type: 'POST',
                         url: "{{config('app.url')}}/api/order",
                         headers: {'Accept': 'Application/json'},
-                        data: {payment_method:paymentMethod},
+                        data: {payment_method: paymentMethod},
                         success: function (response) {
+                            console.log(response.data.id)
                             Swal.fire({
                                 icon: 'success',
                                 title: "Order",
                                 text: 'Order created successfully',
+                            }).then(function () {
+                                window.open("{{config('app.url').'/print/'}}" + response.data.id);
+                                location.reload();
                             })
-                            location.reload()
                         },
                     });
                 })
-                $('#deleteItemById').on('click',function(){
-                    console.log($(this).attr('data'))
+                $('#deleteItemById').on('click', function () {
                     $.ajax({
                         type: 'POST',
                         url: "{{config('app.url')}}/api/cart/deleteItemById",
                         headers: {'Accept': 'Application/json'},
                         data: {itemId: $(this).attr('data')},
                         success: function (response) {
-                            console.log(response.data)
                             location.reload()
                         },
                     });
