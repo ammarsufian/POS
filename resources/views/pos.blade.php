@@ -234,7 +234,7 @@
                                                id="customerName" placeholder="اسم الزبون" required>
                                         <div class="d-float w-100">
                                             <div class="d-none" id="customersDropDownMenu"
-                                                 style="position: absolute;z-index: 8;width:400px;max-width:400px;background-color: #fff">
+                                                 style="position: absolute;z-index: 1000;width:400px;max-width:400px;background-color: #fff">
                                                 <a class="dropdown-header" href="#">Customers</a>
                                             </div>
                                         </div>
