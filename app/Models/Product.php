@@ -23,8 +23,9 @@ class Product extends Model
     public function getPriceValueAttribute()
     {
         $customer = Cache::get('customer');
+        $customerType = $customer->customer_type_id ?? 1;
 
-        switch ($customer->customer_type_id) {
+        switch ($customerType) {
             case 2:
                 return $this->wholesale_price;
             case 3:
