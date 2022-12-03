@@ -15,8 +15,8 @@ class CustomerController extends Controller
     {
         $customer = Customer::create([
             'name' => $request->get('name'),
-            'mobile_number' => $request->get('mobile_number'),
-            'city' => $request->get('city'),
+            'mobile_number' => $request->get('mobile_number',$request->get('name')),
+            'city' => $request->get('city','amman'),
             'customer_type_id' => $request->get('customer_type_id') ?? 1,
         ]);
 
@@ -29,8 +29,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $customer = Customer::query()
-            ->when($request->has('mobile_number'), function ($query) use ($request) {
-                return $query->where('mobile_number', $request->get('mobile_number'));
+            ->when($request->has('name'), function ($query) use ($request) {
+                return $query->where('name', $request->get('name'));
             })
             ->get();
 
@@ -52,6 +52,15 @@ class CustomerController extends Controller
         return response()->json([
             'data' => $request->get('customerId'),
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        $customer = Customer::query()
+                ->where('name','like','%'.$request->get('task').'%')
+                ->limit(5)->get();
+
+        return response()->json(['data' => $customer ?? []]);
     }
 }
 

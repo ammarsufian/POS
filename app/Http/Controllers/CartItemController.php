@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
 
 class CartItemController extends Controller
 {
@@ -13,6 +13,7 @@ class CartItemController extends Controller
     {
         try {
             $cart = $this->getCustomerCart();
+            $product = Product::findOrFail($request->get('product_id'));
             if ($cart) {
                 $cartItem = $cart->items()->where('product_id', $request->get('product_id'))->first();
 
@@ -22,6 +23,7 @@ class CartItemController extends Controller
                     $cart->items()->create([
                         'product_id' => $request->get('product_id'),
                         'quantity' => $request->get('quantity'),
+                        'price' => $request->get('price') ?? $product->price_value,
                     ]);
             }
         } catch (Exception $exception) {

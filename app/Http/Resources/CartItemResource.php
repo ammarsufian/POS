@@ -18,8 +18,8 @@ class CartItemResource extends JsonResource
             'id' => $this->id,
             'quantity' => $this->quantity,
             'product' => $this->product->name,
-            'price' => $this->product->price,
-            'total' => $this->product->price * $this->quantity,
+            'price' => $this->price,
+            'total' => $this->price * $this->quantity,
         ];
     }
 }

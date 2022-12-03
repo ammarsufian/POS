@@ -38,8 +38,8 @@ class CustomerController extends Controller
     {
         $customer = Customer::create([
             "name" => $request->get('name'),
-            "mobile_number" => $request->get('mobile_number'),
-            "city" => $request->get('city'),
+            "mobile_number" => $request->get('mobile_number') ??$request->get('name'),
+            "city" => $request->get('city') ?? 'amman',
             "customer_type_id" => $request->get('customer-type')
         ]);
 

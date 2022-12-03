@@ -27,9 +27,9 @@ class OrderController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product_id,
-                'price' => $cartItem->product->price,
+                'price' => $cartItem->price,
                 'quantity' => $cartItem->quantity,
-                'total' => $cartItem->product->price * $cartItem->quantity
+                'total' => $cartItem->price * $cartItem->quantity
             ]);
 
             $cartItem->product->update(['quantity' => $cartItem->product->quantity - $cartItem->quantity]);

@@ -16,145 +16,6 @@
         <!-- Header Menu -->
         <ul class="nav user-menu">
 
-            <!-- Search -->
-            <li class="nav-item">
-                <div class="top-nav-search">
-
-                    <a href="javascript:void(0);" class="responsive-search">
-                        <i class="fa fa-search"></i>
-                    </a>
-                    <form action="#">
-                        <div class="searchinputs">
-                            <input type="text" placeholder="Search Here ...">
-                            <div class="search-addon">
-                                <span><img src="{{ URL::asset('/assets/img/icons/closes.svg')}}" alt="img"></span>
-                            </div>
-                        </div>
-                        <a class="btn" id="searchdiv"><img src="{{ URL::asset('/assets/img/icons/search.svg')}}"
-                                                           alt="img"></a>
-                    </form>
-                </div>
-            </li>
-            <!-- /Search -->
-
-            <!-- Flag -->
-            <li class="nav-item dropdown has-arrow flag-nav">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
-                    <img src="{{ URL::asset('/assets/img/flags/us1.png')}}" alt="" height="20">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ URL::asset('/assets/img/flags/us.png')}}" alt="" height="16"> English
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ URL::asset('/assets/img/flags/fr.png')}}" alt="" height="16"> French
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ URL::asset('/assets/img/flags/es.png')}}" alt="" height="16"> Spanish
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ URL::asset('/assets/img/flags/de.png')}}" alt="" height="16"> German
-                    </a>
-                </div>
-            </li>
-            <!-- /Flag -->
-
-            <!-- Notifications -->
-            <li class="nav-item dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                    <img src="{{ URL::asset('/assets/img/icons/notification-bing.svg')}}" alt="img"> <span
-                        class="badge rounded-pill">4</span>
-                </a>
-                <div class="dropdown-menu notifications">
-                    <div class="topnav-dropdown-header">
-                        <span class="notification-title">Notifications</span>
-                        <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                    </div>
-                    <div class="noti-content">
-                        <ul class="notification-list">
-                            <li class="notification-message">
-                                <a href="{{url('activities')}}">
-                                    <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ URL::asset('/assets/img/profiles/avatar-02.jpg')}}">
-                                    </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">John Doe</span> added new
-                                                task <span class="noti-title">Patient appointment booking</span></p>
-                                            <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="{{url('activities')}}">
-                                    <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ URL::asset('/assets/img/profiles/avatar-03.jpg')}}">
-                                    </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
-                                                changed the task name <span class="noti-title">Appointment booking with payment gateway</span>
-                                            </p>
-                                            <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="{{url('activities')}}">
-                                    <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ URL::asset('/assets/img/profiles/avatar-06.jpg')}}">
-                                    </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Misty Tison</span> added
-                                                <span class="noti-title">Domenic Houston</span> and <span
-                                                    class="noti-title">Claire Mapes</span> to project <span
-                                                    class="noti-title">Doctor available module</span></p>
-                                            <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="{{url('activities')}}">
-                                    <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ URL::asset('/assets/img/profiles/avatar-17.jpg')}}">
-                                    </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Rolland Webber</span>
-                                                completed task <span class="noti-title">Patient and Doctor video conferencing</span>
-                                            </p>
-                                            <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="{{url('activities')}}">
-                                    <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ URL::asset('/assets/img/profiles/avatar-13.jpg')}}">
-                                    </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
-                                                added new task <span class="noti-title">Private chat module</span></p>
-                                            <p class="noti-time"><span class="notification-time">2 days ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="topnav-dropdown-footer">
-                        <a href="{{url('activities')}}">View all Notifications</a>
-                    </div>
-                </div>
-            </li>
-            <!-- /Notifications -->
-
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                 <span class="user-img"><img src="{{ URL::asset('/assets/img/profiles/avator1.jpg')}}" alt="">
@@ -233,9 +94,15 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 ">
-                                        <input class="form-control" name="barcode"
+                                        <input class="form-control" name="name"
                                                id="search" type="search" autofocus
                                                placeholder="الباركود او اسم المنتج">
+                                        <div id="productsDropDownParent" class="d-float w-100">
+                                            <div class="d-none" id="productsDropDownMenu"
+                                                 style="position: absolute;z-index: 8;width:400px;max-width:400px;background-color: #fff">
+                                                <a class="dropdown-header" href="#">Action</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     @if(!empty($active_customer))
                                         <div class="col-12 py-3 mt-3">
@@ -336,7 +203,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>{{$item->product->price}}</li>
+                                        <li>{{$item->price}}</li>
                                         <li><a class="confirm-text" id="deleteItemById" data="{{$item->id}}"><img
                                                     src="{{ URL::asset('/assets/img/icons/delete-2.svg')}}"
                                                     alt="img"></a></li>
@@ -362,9 +229,15 @@
                                 <span id="message" class="d-none"> تعريف زبون جديد </span>
                                 <form class="form-inline">
                                     <div class="form-group mx-sm-3 mb-2">
-                                        <label for="mobileNumber" class="sr-only">Password</label>
+                                        <label for="mobileNumber" class="sr-only">mobileNumber</label>
                                         <input type="text" class="form-control" name="mobile_number"
-                                               id="mobileNumber" placeholder="رقم الهاتف" required>
+                                               id="customerName" placeholder="اسم الزبون" required>
+                                        <div class="d-float w-100">
+                                            <div class="d-none" id="customersDropDownMenu"
+                                                 style="position: absolute;z-index: 8;width:400px;max-width:400px;background-color: #fff">
+                                                <a class="dropdown-header" href="#">Customers</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <a class="btn btn-primary mb-2" onclick="validateMobileNumber()">
                                         التحقق من اسم الزبون
@@ -379,16 +252,6 @@
                                         <label for="inputName" class="sr-only">Name</label>
                                         <input type="text" class="form-control" name="name" id="inputName"
                                                placeholder="اسم الزبون" required>
-                                    </div>
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <label for="inputMobileNumber" class="sr-only">MobileNumber</label>
-                                        <input type="text" class="form-control" name="mobile_number"
-                                               id="inputMobileNumber" placeholder="رقم الهاتف" required>
-                                    </div>
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <label for="inputCityName" class="sr-only">City</label>
-                                        <input type="text" class="form-control" name="city"
-                                               id="inputCityName" placeholder="المدينه" required>
                                     </div>
                                     <div class="select-group">
                                         <select class="select" name="customer-type" required>
@@ -419,7 +282,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="post" action="{{route('addItemToCart')}}">
+                        <form id="addToCartPopup" method="post" action="{{route('addItemToCart')}}">
                             {{csrf_field()}}
                             <div class="modal-body">
                                 <div class="d-flex justify-content-between">
@@ -433,11 +296,13 @@
                                     </div>
                                 </div>
                                 <input hidden name="product_id" id="product-id"/>
-                                <input type="number" class="form-control" value="1"
-                                       id="quantity" name="quantity" placeholder="stock" required/>
+                                <input type="number" class="form-control" value="1" min="1"
+                                       id="quantity" name="quantity" placeholder="الكميه المطلوبه" required/>
+                                <input type="number" class="form-control" step="any"
+                                       id="price" name="price" placeholder="السعر" required/>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">اضافه</button>
+                                <a onclick="submitCartForm()" class="btn btn-primary">اضافه</a>
                             </div>
                         </form>
                     </div>
@@ -450,10 +315,11 @@
             const data = {}
             $(document).ready(function () {
                 $('#search').on('change', function () {
-                    if (this.value.length >= 10) {
+                    var numbers = /^[0-9]+$/;
+                    if (this.value.match(numbers)) {
                         $.ajax({
                             type: 'GET',
-                            url: "{{config('app.url')}}/api/products?task=" + this.value,
+                            url: "{{config('app.url')}}/api/products?barcode=" + this.value,
                             headers: {'Accept': 'Application/json'},
                             success: function (data) {
                                 console.log(data.data)
@@ -462,8 +328,6 @@
                                     $('#product-name').text(product.name)
                                     $('#product-qty').text(product.quantity)
                                     $('#product-id').val(product.id)
-                                    $('#inputMobileNumber').val(this.value)
-                                    $('#inputCityName').val('amman')
                                     $('#addToCartModal').modal('show')
                                 } else {
                                     Swal.fire({
@@ -476,19 +340,58 @@
                         });
                     }
                 });
+                $('#search').on('input', function () {
+                    var numbers = /^[0-9]+$/;
+                    if (!this.value) {
+                        $("#productsDropDownMenu").addClass('d-none');
+                    }
+                    if (!this.value.match(numbers) && this.value) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{config('app.url')}}/api/product",
+                            data: {name: this.value},
+                            headers: {'Accept': 'Application/json'},
+                            success: function (data) {
+                                const productDropDown = $("#productsDropDownMenu");
+                                if (data.data.length > 0) {
+                                    $('.suggestions').remove();
+                                    data.data.forEach(function (item) {
+                                        productDropDown.append("<a class='dropdown-item suggestions' onclick='addItemToCart(" + item.id + ")'>" + item.name + "</a>")
+                                    });
+                                    productDropDown.removeClass('d-none');
+                                }
+                            }
+                        });
+                    }
+                })
+                $('#customerName').on('input', function () {
+                    if (this.value) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{config('app.url')}}/api/customer",
+                            headers: {'Accept': 'Application/json'},
+                            data: {task: this.value},
+                            success: function (data) {
+                                console.log(data.data)
+                                const customerDropDown = $("#customersDropDownMenu");
+                                $('.customer-suggestions').remove();
+                                if (data.data.length > 0) {
+                                    data.data.forEach(function (customer) {
+                                        customerDropDown.append("<a class='dropdown-item customer-suggestions' onclick='setActiveCustomer(" + customer.id + ")'>" + customer.name + "</a>")
+                                    });
+                                    customerDropDown.removeClass('d-none');
+                                } else {
+                                    $("#customersDropDownMenu").addClass('d-none');
+                                }
+                            }
+                        });
+                    } else {
+                        $("#customersDropDownMenu").addClass('d-none');
+                    }
+                })
 
                 $('#active-customers').on('change', function () {
-                    console.log(this.value);
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{config('app.url')}}/api/active_customer",
-                        headers: {'Accept': 'Application/json'},
-                        data: {customerId: this.value},
-                        success: function (response) {
-                            console.log(response.data)
-                            location.reload()
-                        },
-                    });
+                    setActiveCustomer(this.value)
                 })
                 $('#add-product-to-cart-modal').click(() => {
                     $('#addToCartModal').modal('hide');
@@ -535,22 +438,43 @@
                         url: "{{config('app.url')}}/api/cart/deleteItemById",
                         headers: {'Accept': 'Application/json'},
                         data: {itemId: $(this).attr('data')},
-                        success: function (response) {
+                        success: function () {
                             location.reload()
                         },
                     });
                 });
             })
 
-            const validateMobileNumber = function () {
-                const mobileNumber = $('#mobileNumber').val();
+            const addItemToCart = function (id) {
+                console.log(id);
+                $("#productsDropDownMenu").addClass('d-none');
                 $.ajax({
                     type: 'GET',
-                    url: "{{config('app.url')}}/api/customers?mobile_number=" + mobileNumber,
+                    url: "{{config('app.url')}}/api/products/" + id,
+                    headers: {'Accept': 'Application/json'},
+                    success: function (data) {
+                        console.log(data.data)
+                        if (data.data) {
+                            const product = data.data
+                            $('#product-name').text(product.name)
+                            $('#product-qty').text(product.quantity)
+                            $('#product-id').val(product.id)
+                            $('#addToCartModal').modal('show')
+                        }
+                    }
+                });
+            }
+
+            const validateMobileNumber = function () {
+                const name = $('#customerName').val();
+                $.ajax({
+                    type: 'GET',
+                    url: "{{config('app.url')}}/api/customers?name=" + name,
                     headers: {'Accept': 'Application/json'},
                     success: function (response) {
                         if (response.data.length == 0) {
                             $('#message').html('الزبون غير موجود').removeClass('d-none')
+                            $('#inputName').val(name)
                             $("#extension-validate-user-form").removeClass('d-none')
                         } else {
                             $('#message').html('الزبون موجود').removeClass('d-none')
@@ -560,6 +484,40 @@
 
                     },
                 });
+            }
+            const setActiveCustomer = function (id) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{config('app.url')}}/api/active_customer",
+                    headers: {'Accept': 'Application/json'},
+                    data: {customerId: id},
+                    success: function (response) {
+                        console.log(response.data)
+                        location.reload()
+                    },
+                });
+            }
+            const submitCartForm = function () {
+                const availableQuantity = parseInt($("#product-qty").text())
+                const requestedQuantity = $("#quantity").val()
+                if (requestedQuantity < 1 ) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "خطأ",
+                        text: 'الكميه لا يمكن ان تكون اقل من ١',
+                    })
+                }else {
+                    if (availableQuantity < requestedQuantity) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "خطأ",
+                            text: 'الكميه الموجوده لا تكفي',
+                        })
+                    } else {
+                        $('#addToCartPopup').submit();
+                    }
+                }
+
             }
             const validateCustomer = function () {
                 $('#validateCustomerData').modal('show');
