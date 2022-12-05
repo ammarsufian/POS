@@ -23,7 +23,7 @@ class CartItemController extends Controller
                     $cart->items()->create([
                         'product_id' => $request->get('product_id'),
                         'quantity' => $request->get('quantity'),
-                        'price' => $request->get('price') ?? $product->price_value,
+                        'price' => $request->get('price') > 0 ? $request->get('price') :  $product->price_value,
                     ]);
             }
         } catch (Exception $exception) {
