@@ -38,28 +38,28 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>سعر مفرق</label>
-                                    <input type="number" name="price" value="{{$product->price}}" required>
+                                    <input type="number" name="price" step="any" value="{{$product->price}}" required>
                                 </div>
                             </div>
 
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>سعر الجملة</label>
-                                    <input type="number" name="wholesale_price" value="{{$product->wholesale_price}}"
+                                    <input type="number" name="wholesale_price" step="any" value="{{$product->wholesale_price}}"
                                            required>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>سعر جملة الجملة</label>
-                                    <input type="number" name="traders_price" value="{{$product->traders_price}}"
+                                    <input type="number" name="traders_price" step="any" value="{{$product->traders_price}}"
                                            required>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label> سعر التكلفه</label>
-                                    <input type="number" name="cost_price" value="{{$product->cost_price}}"
+                                    <input type="number" name="cost_price" step="any" value="{{$product->cost_price}}"
                                            required>
                                 </div>
                             </div>
