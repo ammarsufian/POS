@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="col-lg-12 ">
                                         <input class="form-control" name="name"
-                                               id="search" type="search" autofocus
+                                               id="search" type="search" autofocus autocomplete="off"
                                                placeholder="الباركود او اسم المنتج">
                                         <div id="productsDropDownParent" class="d-float w-100">
                                             <div class="d-none" id="productsDropDownMenu"
@@ -146,7 +146,7 @@
                                     <ul>
                                         <li class="total-value">
                                             <h5>المجموع </h5>
-                                            <h6>{{data_get($cart,'total',0)}}</h6>
+                                            <h6 id="total_amount">{{data_get($cart,'total',0)}}</h6>
                                         </li>
                                     </ul>
                                 </div>
@@ -160,6 +160,10 @@
                                                 <option value="cash">كاش</option>
                                                 <option value="debit">ذمم</option>
                                             </select>
+
+                                            <input class="form-control mt-3 d-none" name="debit_amount"
+                                                   id="debit_amount" type="text" autofocus autocomplete="off"
+                                                   placeholder="قيمة الذمم">
                                         </div>
                                     </div>
                                     <a class="w-100 btn btn-primary" id="order-creation-button">
@@ -219,7 +223,7 @@
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Check customer data </h5>
+                            <h5 class="modal-title">تعريف زبون </h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -251,7 +255,7 @@
                                     <div class="form-group mx-sm-3 mb-2">
                                         <label for="inputName" class="sr-only">Name</label>
                                         <input type="text" class="form-control" name="name" id="inputName"
-                                               placeholder="اسم الزبون" required>
+                                               placeholder="اسم الزبون" required autofocus>
                                     </div>
                                     <div class="select-group">
                                         <select class="select" name="customer-type" required>
@@ -396,6 +400,13 @@
                 $('#add-product-to-cart-modal').click(() => {
                     $('#addToCartModal').modal('hide');
                 })
+                $('#payment-method-select').on('change', function () {
+                    if (this.value === 'cash') {
+                        $("#debit_amount").addClass('d-none')
+                    } else {
+                        $("#debit_amount").removeClass('d-none')
+                    }
+                })
                 $('#order-creation-button').click(function () {
                     const itemCount = parseInt($('#cart-items-count').text());
                     if (!itemCount) {
@@ -407,6 +418,8 @@
                     }
 
                     const paymentMethod = $('#payment-method-select').find(":selected").val();
+                    const debit_amount = $("#debit_amount").val()
+                    console.log(debit_amount)
                     if (!paymentMethod) {
                         Swal.fire({
                             icon: 'error',
@@ -414,11 +427,27 @@
                             text: 'Please select a payment method',
                         })
                     }
+                    if (paymentMethod === 'debit') {
+                        if (!debit_amount) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: "",
+                                text: 'الرجاء إضافة قيمه الذمم لعملية الذمم',
+                            })
+                        }
+                        if (debit_amount > parseFloat($("#total_amount").text())) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: "",
+                                text: 'لا يمكن لقيمه الذمم ان تكون اكبر من قيمه الفاتوره',
+                            })
+                        }
+                    }
                     $.ajax({
                         type: 'POST',
                         url: "{{config('app.url')}}/api/order",
                         headers: {'Accept': 'Application/json'},
-                        data: {payment_method: paymentMethod},
+                        data: {payment_method: paymentMethod,debit_amount_label: debit_amount},
                         success: function (response) {
                             console.log(response.data.id)
                             Swal.fire({
@@ -500,13 +529,13 @@
             const submitCartForm = function () {
                 const availableQuantity = parseInt($("#product-qty").text())
                 const requestedQuantity = $("#quantity").val()
-                if (requestedQuantity < 1 ) {
+                if (requestedQuantity < 1) {
                     Swal.fire({
                         icon: 'error',
                         title: "خطأ",
                         text: 'الكميه لا يمكن ان تكون اقل من ١',
                     })
-                }else {
+                } else {
                     if (availableQuantity < requestedQuantity) {
                         Swal.fire({
                             icon: 'error',

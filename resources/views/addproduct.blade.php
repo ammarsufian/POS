@@ -29,12 +29,12 @@
                                     <input type="text" name="barcode" required>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>الكمية</label>
-                                    <input type="number" name="quantity"   required>
-                                </div>
-                            </div>
+{{--                            <div class="col-lg-3 col-sm-6 col-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>الكمية</label>--}}
+{{--                                    <input type="number" name="quantity"   required>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>سعر مفرق</label>
@@ -47,27 +47,27 @@
                                     <input type="number" name="wholesale_price" step="any" required>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>سعر التكلفه</label>
-                                    <input type="number" name="cost_price" step="any" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>سعر جملة الجملة</label>
-                                    <input type="number" name="traders_price" step="any" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label> الحالة</label>
-                                    <select class="select" name="status">
-                                        <option value="not-available">غير موجود</option>
-                                        <option value="available" selected>موجود</option>
-                                    </select>
-                                </div>
-                            </div>
+{{--                            <div class="col-lg-3 col-sm-6 col-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>سعر التكلفه</label>--}}
+{{--                                    <input type="number" name="cost_price" step="any" required>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-3 col-sm-6 col-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>سعر جملة الجملة</label>--}}
+{{--                                    <input type="number" name="traders_price" step="any" required>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-3 col-sm-6 col-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label> الحالة</label>--}}
+{{--                                    <select class="select" name="status">--}}
+{{--                                        <option value="not-available">غير موجود</option>--}}
+{{--                                        <option value="available" selected>موجود</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
 {{--                            <div class="col-lg-12">--}}
 {{--                                <div class="form-group">--}}

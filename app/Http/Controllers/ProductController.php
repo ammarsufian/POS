@@ -13,12 +13,12 @@ class ProductController extends Controller
         $product = Product::create([
             'name' => $request->get('name'),
             'barcode' => $request->get('barcode'),
-            'quantity' => $request->get('quantity'),
+            'quantity' => $request->get('quantity') ?? 0,
             'price' => $request->get('price'),
-            'wholesale_price' => $request->get('wholesale_price'),
-            'traders_price' => $request->get('traders_price'),
-            'status' => $request->get('status', 'available'),
-            'cost_price' => $request->get('cost_price'),
+            'wholesale_price' => $request->get('wholesale_price') ?? 0,
+            'traders_price' => $request->get('traders_price') ??0,
+            'status' => $request->get('status', 'available') ?? 'available',
+            'cost_price' => $request->get('cost_price') ??0,
 //            'expire_datetime' => $request->get('expiry_date')
         ]);
 

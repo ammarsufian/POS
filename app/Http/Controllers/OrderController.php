@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AddCustomerTransactionEvent;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
@@ -34,6 +35,8 @@ class OrderController extends Controller
 
             $cartItem->product->update(['quantity' => $cartItem->product->quantity - $cartItem->quantity]);
         });
+
+        event(new AddCustomerTransactionEvent($order , $customer,$request->all()));
 
         CartItem::whereIn('id', $cart_items->pluck('id'))->delete();
         $customerCart->delete();
