@@ -28,7 +28,7 @@ class PosController extends Controller
             'active_customer' => $customer ?? null,
             'cart' => $cart ? (CartResource::make($cart))->resolve() : null,
             'customers_list' => Customer::whereHas('cart')->get(),
-            'debit_amount' => $debit_amount
+            'debit_amount' => $debit_amount ??0
         ]);
     }
 }
