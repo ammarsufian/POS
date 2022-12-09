@@ -4,6 +4,7 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ControlPageController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -49,7 +50,7 @@ Route::get('/print/{order}', InvoiceController::class);
 Route::get('/customerlist',[CustomerController::class,'webIndex']);
 Route::get('/edit/customer/{customer}',[CustomerController::class,'edit'])->name('editCustomer');
 Route::get('/index', [ControlPageController::class,'index'])->name('index');
-
+Route::get('/saleslist', [OrderController::class,'index'])->name('saleslist');
 
 Route::get('/', function () {
     return view('signin');
@@ -368,9 +369,6 @@ Route::get('/ribbon', function () {
 Route::get('/sales-details', function () {
     return view('sales-details');
 })->name('sales-details');
-Route::get('/saleslist', function () {
-    return view('saleslist');
-})->name('saleslist');
 Route::get('/salesreport', function () {
     return view('salesreport');
 })->name('salesreport');

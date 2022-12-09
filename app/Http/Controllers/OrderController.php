@@ -36,7 +36,7 @@ class OrderController extends Controller
             $cartItem->product->update(['quantity' => $cartItem->product->quantity - $cartItem->quantity]);
         });
 
-        event(new AddCustomerTransactionEvent($order , $customer,$request->all()));
+        event(new AddCustomerTransactionEvent($order, $customer, $request->all()));
 
         CartItem::whereIn('id', $cart_items->pluck('id'))->delete();
         $customerCart->delete();
@@ -45,6 +45,15 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
             'data' => $order,
+        ]);
+    }
+
+    public function index()
+    {
+        $orders = Order::with('customer')->get();
+
+        return view('saleslist')->with([
+            'orders' => $orders
         ]);
     }
 }
