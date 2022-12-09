@@ -29,12 +29,12 @@
                                     <input type="text" name="barcode" required>
                                 </div>
                             </div>
-{{--                            <div class="col-lg-3 col-sm-6 col-12">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label>الكمية</label>--}}
-{{--                                    <input type="number" name="quantity"   required>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>الكمية</label>
+                                    <input type="number" name="quantity"   required>
+                                </div>
+                            </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>سعر مفرق</label>
