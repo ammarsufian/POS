@@ -45,12 +45,13 @@ Route::get('/pos', [PosController::class, 'index'])->name('pos');
 Route::post('/cart', [CartItemController::class, 'store'])->name('addItemToCart');
 
 //print invoice route
-Route::get('/print/{order}', InvoiceController::class);
+Route::get('/print/{order}', InvoiceController::class)->name('print-invoice');
 
 Route::get('/customerlist',[CustomerController::class,'webIndex']);
 Route::get('/edit/customer/{customer}',[CustomerController::class,'edit'])->name('editCustomer');
 Route::get('/index', [ControlPageController::class,'index'])->name('index');
 Route::get('/saleslist', [OrderController::class,'index'])->name('saleslist');
+Route::get('/sales-details/{order}',[OrderController::class,'show'])->name('sales-details');
 
 Route::get('/', function () {
     return view('signin');
@@ -366,9 +367,7 @@ Route::get('/resetpassword', function () {
 Route::get('/ribbon', function () {
     return view('ribbon');
 })->name('ribbon');
-Route::get('/sales-details', function () {
-    return view('sales-details');
-})->name('sales-details');
+
 Route::get('/salesreport', function () {
     return view('salesreport');
 })->name('salesreport');

@@ -26,7 +26,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>الباركود</label>
-                                    <input type="text" name="barcode" required>
+                                    <input type="text" name="barcode">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">

@@ -3,10 +3,10 @@
 @section('content')
 <div class="page-wrapper">
     <div class="content">
-        @component('components.pageheader')                
-			@slot('title') Sales List @endslot
-			@slot('title_1') Manage your sales @endslot
-		@endcomponent
+{{--        @component('components.pageheader')--}}
+{{--			@slot('title') Sales List @endslot--}}
+{{--			@slot('title_1') Manage your sales @endslot--}}
+{{--		@endcomponent--}}
         <!-- /product list -->
         <div class="card">
             <div class="card-body">
@@ -21,19 +21,6 @@
                         <div class="search-input">
                             <a class="btn btn-searchset"><img src="{{ URL::asset('/assets/img/icons/search-white.svg')}}" alt="img"></a>
                         </div>
-                    </div>
-                    <div class="wordset">
-                        <ul>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="{{ URL::asset('/assets/img/icons/pdf.svg')}}" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="{{ URL::asset('/assets/img/icons/excel.svg')}}" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="{{ URL::asset('/assets/img/icons/printer.svg')}}" alt="img"></a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <!-- /Filter -->
@@ -71,486 +58,41 @@
                     <table class="table  datanew">
                         <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
-                                <th>Date</th>
-                                <th>Customer Name</th>
-                                <th>Reference</th>
-                                <th>Status</th>
-                                <th>Payment</th>
-                                <th>Total</th>
-                                <th>Paid</th>
-                                <th>Due</th>
-                                <th>Biller</th>
+                                <th>رقم الفاتوره</th>
+                                <th>اسم الزبون</th>
+                                <th>الحاله</th>
+                                <th>المجموع</th>
+                                <th>مجموع الذمم</th>
+                                <th>مجموع الكاش</th>
+                                <th>تاريخ الشراء</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($orders as $order)
                             <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0101</td>
-                                <td><span class="badges bg-lightgreen">Completed</span></td>
-                                <td><span class="badges bg-lightgreen">Paid</span></td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td class="text-red">100.00</td>
-                                <td>Admin</td>
+                                <td>#{{$order->id}}</td>
+                                <td>{{$order->customer->name}}</td>
+                                <td>{{$order->status}}</td>
+                                <td>{{$order->items->sum('total')}}</td>
+                                <td>{{$order->transactions->where('status','pending')->first()->total ?? 0}}</td>
+                                <td>{{$order->transactions->where('status','paid')->first()->total ?? 0}}</td>
+                                <td>{{$order->created_at->toDateTimeString()}}</td>
                                 <td class="text-center">
                                     <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                     </a>
                                     <ul class="dropdown-menu"  >
                                         <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
+                                            <a href="{{url('sales-details',['order' => $order->id])}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">تفاصيل الفاتوره</a>
                                         </li>
                                         <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
+                                            <a href="/print/{{$order->id}}"  target="_blank"  class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/printer.svg')}}" class="me-2" alt="img">طباعه الفاتوره</a>
                                         </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
                                     </ul>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0102</td>
-                                <td><span class="badges bg-lightgreen">Completed</span></td>
-                                <td><span class="badges bg-lightgreen">Paid</span></td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td class="text-red">100.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0103</td>
-                                <td><span class="badges bg-lightgreen">Completed</span></td>
-                                <td><span class="badges bg-lightgreen">Paid</span></td>
-                                <td>0.00</td>
-                                <td class="text-green">100.00</td>
-                                <td>0.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);"  data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>Fred C. Rasmussen</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0104</td>
-                                <td><span class="badges bg-lightred">Pending</span></td>
-                                <td><span class="badges bg-lightred">Due</span></td>
-                                <td>0.00</td>
-                                <td class="text-green">100.00</td>
-                                <td>0.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>Thomas M. Martin</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0105</td>
-                                <td><span class="badges bg-lightred">Pending</span></td>
-                                <td><span class="badges bg-lightred">Due</span></td><td>0.00</td>
-                                <td>0.00</td>
-                                <td class="text-green">100.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>Thomas M. Martin</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0106</td>
-                                <td><span class="badges bg-lightgreen">Completed</span></td>
-                                <td><span class="badges bg-lightgreen">Paid</span></td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td class="text-red">100.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0107</td>
-                                <td><span class="badges bg-lightgreen">Completed</span></td>
-                                <td><span class="badges bg-lightgreen">Paid</span></td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td class="text-red">100.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0108</td>
-                                <td><span class="badges bg-lightred">Pending</span></td>
-                                <td><span class="badges bg-lightred">Due</span></td>
-                                <td>0.00</td>
-                                <td class="text-green">100.00</td>
-                                <td>0.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0109</td>
-                                <td><span class="badges bg-lightred">Pending</span></td>
-                                <td><span class="badges bg-lightred">Due</span></td>
-                                <td>0.00</td>
-                                <td class="text-green">100.00</td>
-                                <td>0.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0110</td>
-                                <td><span class="badges bg-lightred">Pending</span></td>
-                                <td><span class="badges bg-lightred">Due</span></td>
-                                <td>0.00</td>
-                                <td class="text-green">100.00</td>
-                                <td>0.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>walk-in-customer</td>
-                                <td>19 Nov 2022</td>
-                                <td>SL0111</td>
-                                <td><span class="badges bg-lightred">Pending</span></td>
-                                <td><span class="badges bg-lightred">Due</span></td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>Admin</td>
-                                <td class="text-center">
-                                    <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu"  >
-                                        <li>
-                                            <a href="{{url('sales-details')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">Sale Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('edit-sales')}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/edit.svg')}}" class="me-2" alt="img">Edit Sale</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#showpayment"><img src="{{ URL::asset('/assets/img/icons/dollar-square.svg')}}" class="me-2" alt="img">Show Payments</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createpayment"><img src="{{ URL::asset('/assets/img/icons/plus-circle.svg')}}" class="me-2" alt="img">Create Payment</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/download.svg')}}" class="me-2" alt="img">Download pdf</a>
-                                        </li>	
-                                        <li>
-                                            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="{{ URL::asset('/assets/img/icons/delete1.svg')}}" class="me-2" alt="img">Delete Sale</a>
-                                        </li>								
-                                    </ul>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -559,6 +101,6 @@
         <!-- /product list -->
     </div>
 </div>
-@component('components.modal-popup')                
+@component('components.modal-popup')
 @endcomponent
 @endsection

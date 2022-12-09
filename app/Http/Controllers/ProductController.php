@@ -19,10 +19,9 @@ class ProductController extends Controller
             'traders_price' => $request->get('traders_price') ??0,
             'status' => $request->get('status', 'available') ?? 'available',
             'cost_price' => $request->get('cost_price') ??0,
-//            'expire_datetime' => $request->get('expiry_date')
         ]);
 
-        return redirect()->intended('productlist')
+        return redirect()->intended('addproduct')
             ->withSuccess('تم إضافة المنتج بنجاح');
     }
 

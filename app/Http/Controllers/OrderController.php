@@ -50,10 +50,19 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::with('customer')->get();
+        $orders = Order::with(['customer', 'items', 'transactions'])->get();
 
         return view('saleslist')->with([
             'orders' => $orders
+        ]);
+    }
+
+    public function show(Order $order)
+    {
+        $order = $order->load(['customer', 'items', 'transactions']);
+
+        return view('sales-details')->with([
+            'order' => $order
         ]);
     }
 }
