@@ -47,12 +47,12 @@
                                     <input type="number" name="wholesale_price" step="any" required>
                                 </div>
                             </div>
-{{--                            <div class="col-lg-3 col-sm-6 col-12">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label>سعر التكلفه</label>--}}
-{{--                                    <input type="number" name="cost_price" step="any" required>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>سعر التكلفه</label>
+                                    <input type="number" name="cost_price" step="any" required>
+                                </div>
+                            </div>
 {{--                            <div class="col-lg-3 col-sm-6 col-12">--}}
 {{--                                <div class="form-group">--}}
 {{--                                    <label>سعر جملة الجملة</label>--}}

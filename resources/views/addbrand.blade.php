@@ -1,9 +1,9 @@
 <?php $page="addbrand";?>
 @extends('layout.mainlayout')
-@section('content')		
+@section('content')
 <div class="page-wrapper">
     <div class="content">
-        @component('components.pageheader')                
+        @component('components.pageheader')
 			@slot('title') Brand ADD @endslot
 			@slot('title_1') Create new Brand @endslot
 		@endcomponent
@@ -23,7 +23,7 @@
                             <textarea class="form-control"></textarea>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label>	Product Image</label>
@@ -38,13 +38,12 @@
                     </div>
                     <div class="col-lg-12">
                         <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
-                        <a href="{{url('brandlist')}}" class="btn btn-cancel">Cancel</a>
+                        <a href="{{url('customerlist')}}" class="btn btn-cancel">Cancel</a>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /add -->
     </div>
-</div>		
+</div>
 @endsection
-	  

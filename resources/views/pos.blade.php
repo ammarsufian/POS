@@ -118,10 +118,10 @@
                                                     </div>
                                                     <div class="d-flex w-50">
                                                         <p class="fs-6">
-                                                            وقت البدء :
+                                                            رصيد الذمم :
                                                         </p>
                                                         <p class="fs-6">
-                                                            {{$active_customer->created_at->diffForHumans()}}
+                                                            {{$debit_amount}}
                                                         </p>
                                                     </div>
                                                 </div>

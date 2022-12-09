@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\ControlPageController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PosController;
@@ -46,13 +47,13 @@ Route::post('/cart', [CartItemController::class, 'store'])->name('addItemToCart'
 Route::get('/print/{order}', InvoiceController::class);
 
 Route::get('/customerlist',[CustomerController::class,'webIndex']);
+Route::get('/edit/customer/{customer}',[CustomerController::class,'edit'])->name('editCustomer');
+Route::get('/index', [ControlPageController::class,'index'])->name('index');
+
 
 Route::get('/', function () {
     return view('signin');
 })->name('signin');
-Route::get('/index', function () {
-    return view('index');
-})->name('index');
 Route::get('/activities', function () {
     return view('activities');
 })->name('activities');
@@ -152,9 +153,6 @@ Route::get('/createsalesreturns', function () {
 Route::get('/currencysettings', function () {
     return view('currencysettings');
 })->name('currencysettings');
-Route::get('/customerlist', function () {
-    return view('customerlist');
-})->name('customerlist');
 Route::get('/customerreport', function () {
     return view('customerreport');
 })->name('customerreport');

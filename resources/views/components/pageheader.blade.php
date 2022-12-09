@@ -9,7 +9,7 @@
         <h6>{{ $title_1 }}</h6>
     </div>
     @endif
-    @if(Route::is(['brandlist']))
+    @if(Route::is(['customerlist']))
     <div class="page-btn">
         <a href="{{url('addbrand')}}" class="btn btn-added"><img src="{{ URL::asset('/assets/img/icons/plus.svg')}}"  class="me-2" alt="img">Add Brand</a>
     </div>

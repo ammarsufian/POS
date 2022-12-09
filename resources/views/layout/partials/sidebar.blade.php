@@ -7,11 +7,11 @@
                     <a class="{{ Request::is('index') ? 'active' : '' }}" href="{{url('index')}}" ><img src="{{ URL::asset('/assets/img/icons/dashboard.svg')}}" alt="img"><span> لوحة التحكم</span> </a>
                 </li>
                 <li class="submenu">
-                    <a class="{{ Request::is('productlist','addproduct','editbrand','product-details','editsubcategory','editcategory','categorylist','editproduct','addcategory','subcategorylist','subaddcategory','brandlist','addbrand','importproduct','barcode') ? 'active' : '' }} href="javascript:void(0);"><img src="{{ URL::asset('/assets/img/icons/product.svg')}}" alt="img"><span> المنتجات</span> <span class="menu-arrow"></span></a>
+                    <a class="{{ Request::is('productlist','addproduct','editbrand','product-details','editsubcategory','editcategory','categorylist','editproduct','addcategory','subcategorylist','subaddcategory','customerlist','addbrand','importproduct','barcode') ? 'active' : '' }} href="javascript:void(0);"><img src="{{ URL::asset('/assets/img/icons/product.svg')}}" alt="img"><span> المنتجات</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a class="{{ Request::is('productlist','editproduct') ? 'active' : '' }}" href="{{url('productlist')}}">لائحة المنتجات</a></li>
                         <li><a class="{{ Request::is('addproduct','product-details') ? 'active' : '' }}"href="{{url('addproduct')}}">إضافة منتج جديد</a></li>
-                        <li><a class="{{ Request::is('brandlist') ? 'active' : '' }}"href="{{url('brandlist')}}">لائحة الزبائن</a></li>
+                        <li><a class="{{ Request::is('customerlist') ? 'active' : '' }}"href="{{url('customerlist')}}">لائحة الزبائن</a></li>
                         <li><a class="{{ Request::is('addbrand','editbrand') ? 'active' : '' }}"href="{{url('addbrand')}}">إضافة زبون جديد</a></li>
 {{--                        <li><a class="{{ Request::is('importproduct') ? 'active' : '' }}"href="{{url('importproduct')}}">Import Products</a></li>--}}
                     </ul>

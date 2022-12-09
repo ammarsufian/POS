@@ -29,7 +29,7 @@ class CustomerController extends Controller
     {
         $customers = Customer::query()->get();
 
-       return view('brandlist')->with([
+       return view('customerlist')->with([
            'customers' => $customers
        ]);
 
@@ -45,5 +45,12 @@ class CustomerController extends Controller
 
         Cache::put('customer', $customer);
         return redirect()->route('pos');
+    }
+
+    public function edit(Customer $customer)
+    {
+        return view('editcustomer')->with([
+            'customer' => $customer
+        ]);
     }
 }
