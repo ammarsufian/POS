@@ -20,6 +20,8 @@ class CustomerController extends Controller
             'customer_type_id' => $request->get('customer_type_id') ?? 1,
         ]);
 
+        Cache::put('customer', $customer);
+
         return response()->json([
             'data' => $customer,
             'message' => 'Customer account is created successfully'

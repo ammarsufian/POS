@@ -29,5 +29,6 @@ Route::post('/customers',[CustomerController::class,'store']);
 Route::post('active_customer',[CustomerController::class,'activeCustomer']);
 Route::post('customer',[CustomerController::class,'search']);
 Route::post('/cart/deleteItemById',[CartItemController::class,'deleteItemById']);
+Route::post('/cart/addItemToCart',[CartItemController::class,'store']);
 Route::post('/order', [OrderController::class, 'store'])->name('create-order');
 

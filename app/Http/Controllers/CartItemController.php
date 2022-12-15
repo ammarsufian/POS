@@ -30,7 +30,7 @@ class CartItemController extends Controller
             dd($exception->getMessage());
         }
 
-        return redirect()->route('pos');
+        return response()->json(['data'=>$cartItem,'success' => true]);
     }
 
     public function deleteItemById(Request $request)

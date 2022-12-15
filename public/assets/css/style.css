@@ -993,6 +993,15 @@ strong {
   -ms-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
+.post-page-wrapper {
+    margin: 0 3px 0 0;
+    padding: 60px 0 0;
+    position: relative;
+    left: 0;
+    -webkit-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
 @media (max-width: 991px) {
   .page-wrapper {
     margin: 0;

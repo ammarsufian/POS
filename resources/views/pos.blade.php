@@ -57,282 +57,218 @@
             </li>
         </ul>
         <!-- /Header Menu -->
-        <!-- Mobile Menu -->
-        <div class="dropdown mobile-user-menu">
-            <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-               aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="{{url('profile')}}">My Profile</a>
-                <a class="dropdown-item" href="{{url('generalsettings')}}">Settings</a>
-                <a class="dropdown-item" href="{{url('signin')}}">Logout</a>
-            </div>
-        </div>
-        <!-- /Mobile Menu -->
     </div>
-    <div class="page-wrapper ms-0 px-2">
+    <div class="post-page-wrapper">
         <div class="content">
-            <div class="row">
-                <div class="col-lg-5 col-sm-12 ">
-                    <div class="order-list w-100">
-                        <div class="card card-order w-100">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 w-100">
-                                        <a href="javascript:void(0);" class="btn btn-adds" data-bs-toggle="modal"
-                                           onclick="validateCustomer()">تعريف الزبون</a>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="select-split ">
-                                            <div class="select-group w-100">
-                                                <select hidden class="select" id="active-customers">
-                                                    <option disabled selected>الزبائن الحاليين</option>
-                                                    @foreach($customers_list as $customer)
-                                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 ">
-                                        <input class="form-control" name="name"
-                                               id="search" type="search" autofocus autocomplete="off"
-                                               placeholder="الباركود او اسم المنتج">
-                                        <div id="productsDropDownParent" class="d-float w-100">
-                                            <div class="d-none" id="productsDropDownMenu"
-                                                 style="position: absolute;z-index: 8;width:400px;max-width:400px;background-color: #fff">
-                                                <a class="dropdown-header" href="#">Action</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if(!empty($active_customer))
-                                        <div class="col-12 py-3 mt-3">
-                                            <div class="rounded border border-warning mt-3 p-2">
-                                                <div class="d-flex justify-content-between ">
-                                                    <div class="d-flex w-50">
-                                                        <p class="fs-6">
-                                                            اسم الزبون :
-                                                        </p>
-                                                        <p class="fs-6">
-                                                            {{$active_customer->name}}
-                                                        </p>
-                                                    </div>
-                                                    <div class="d-flex w-50">
-                                                        <p class="fs-6">
-                                                            رصيد الذمم :
-                                                        </p>
-                                                        <p class="fs-6">
-                                                            {{$debit_amount}}
-                                                        </p>
+            <div class="card">
+                <div class="card-body">
+                    <div class="invoice-box table-height"
+                         style="max-width: 1600px;width:100%;overflow: auto;margin:15px auto;padding: 0;font-size: 14px;line-height: 24px;color: #555;">
+
+                        <table style="width: 100%;line-height: inherit;text-align: left;">
+                            @if(!empty($active_customer))
+                                <tr>
+                                    <td style="padding:5px;vertical-align:top;text-align:left;padding-bottom:20px">
+                                        <font style="vertical-align: inherit;margin-bottom:25px;"><font
+                                                style="vertical-align: inherit;font-size:14px;color:#7367F0;font-weight:600;line-height: 35px; ">معلومات
+                                                الزبون</font></font><br>
+                                        <font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">{{$active_customer->name?? ''}}</font></font><br>
+                                        <font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">{{$active_customer->mobile_number ??''}}</font></font><br>
+                                    </td>
+                                    <td style="padding:5px;vertical-align:top;text-align:left;padding-bottom:20px">
+                                        <font style="vertical-align: inherit;margin-bottom:25px;"><font
+                                                style="vertical-align: inherit;font-size:14px;color:#7367F0;font-weight:600;line-height: 35px; ">معلومات
+                                                الفاتوره</font></font><br>
+                                        <font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">
+                                                رصيد الذمم </font></font><br>
+                                    </td>
+                                    <td style="padding:5px;vertical-align:top;text-align:right;padding-bottom:20px">
+                                        <font style="vertical-align: inherit;margin-bottom:25px;"><font
+                                                style="vertical-align: inherit;font-size:14px;color:#7367F0;font-weight:600;line-height: 35px; "></font></font><br>
+                                        <font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;font-size: 14px;color:#2E7D32;font-weight: 400;">{{$debit_amount}}</font></font><br>
+                                    </td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td style="padding:5px;vertical-align:top;text-align:right;padding-bottom:20px">
+                                        <div class="row d-inline-flex flex-row flex-nowrap">
+                                            <div class="flex-1 mx-sm-3 mb-2">
+                                                <label for="mobileNumber">اسم الزبون</label>
+                                                <input type="text" class="form-control"
+                                                       style="max-width:40vw" name="customerName"
+                                                       id="customerName" placeholder="اسم الزبون"
+                                                       autocomplete="off" required>
+                                                <div class="d-float w-20">
+                                                    <div class="d-none" id="customersDropDownMenu"
+                                                         style="position: absolute;z-index: 1000;width:400px;max-width:400px;background-color: #fff">
                                                     </div>
                                                 </div>
-                                                <div class="d-flex">
-                                                    <p class="fs-6">
-                                                        هاتف الزبون :
-                                                    </p>
-                                                    <p class="fs-6">
-                                                        {{$active_customer->mobile_number}}
-                                                    </p>
+                                            </div>
+                                            <div id="customerTypeSelect" class="d-none flex-2 mx-sm-3 mb-2">
+                                                <label for="mobileNumber">نوع الزبون</label>
+                                                <div class="select-group" style="max-width:40vw">
+                                                    <select class="select" name="customer-type"
+                                                            id="select-customer-type" required>
+                                                        <option disabled selected> customer type</option>
+                                                        @foreach($types as $type)
+                                                            <option
+                                                                value="{{$type->id}}">{{$type->value}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="split-card">
-                            </div>
-                            <div class="card-body pt-0 pb-2">
-                                <div class="setvalue">
-                                    <ul>
-                                        <li class="total-value">
-                                            <h5>المجموع </h5>
-                                            <h6 id="total_amount">{{data_get($cart,'total',0)}}</h6>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <form id="order-form">
-                                    <div class="setvaluecash">
-                                        <div class="select-group w-100">
-                                            {{csrf_field()}}
-                                            <select required class="select form-control" id="payment-method-select"
-                                                    name="payment-method">
-                                                <option disabled>طريقة الدفع</option>
-                                                <option value="cash">كاش</option>
-                                                <option value="debit">ذمم</option>
-                                            </select>
-
-                                            <input class="form-control mt-3 d-none" name="debit_amount"
-                                                   id="debit_amount" type="text" autofocus autocomplete="off"
-                                                   placeholder="قيمة الذمم">
+                                    </td>
+                                </tr>
+                            @endif
+                        </table>
+                        <div class="row col-lg-12">
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>اسم المنتج</label>
+                                    <input id="search" type="text">
+                                    <div id="productsDropDownParent" class=w-20">
+                                        <div class="d-none" id="productsDropDownMenu"
+                                             style="position: absolute;z-index: 8;width:400px;max-width:400px;background-color: #fff">
+                                            <a class="dropdown-header" href="#">Action</a>
                                         </div>
                                     </div>
-                                    <a class="w-100 btn btn-primary" id="order-creation-button">
-                                        تاكيد الطلب
-                                    </a>
-                                </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>سعر الحبه</label>
+                                    <input id="input-selling-price" class="form-control" type="number" step="any">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>الكميه</label>
+                                    <input id="quantity-field" class="form-control" type="text">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-sm-12 h-100">
-                    <div class="card-body pt-0 h-100">
-                        <div class="totalitem">
-                            <h4> عدد الاصناف: {{data_get($cart,'count',0)}}</h4>
-                            <a href="javascript:void(0);">Clear all</a>
-                        </div>
-                        <span class="d-none" id="cart-items-count">{{data_get($cart,'count',0)}}</span>
-                        <div class="product-table " style="height: 75vh">
-                            @if($cart)
+                        <table width="100%">
+                            <tr class="heading " style="background: #F3F2F7;">
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                    اسم المنتج
+                                </td>
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                    سعر الحبه
+                                </td>
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                    الكميه
+                                </td>
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                    المجموع
+                                </td>
+                            </tr>
+                            @if(!empty($cart))
                                 @foreach(data_get($cart,'items') as $item)
-                                    <ul class="product-lists">
-                                        <li>
-                                            <div class="productimg">
-                                                <div class="productcontet">
-                                                    <h4>{{$item->product->name}}
-                                                        <a href="javascript:void(0);" class="ms-2"
-                                                           data-bs-toggle="modal" data-bs-target="#edit"><img
-                                                                src="{{ URL::asset('/assets/img/icons/edit-5.svg')}}"
-                                                                alt="img"></a>
-                                                    </h4>
-                                                    <div class="increment-decrement">
-                                                        <div class="input-groups">
-                                                            <input type="button" value="-"
-                                                                   class="button-minus dec button">
-                                                            <input type="text" name="child" value="{{$item->quantity}}"
-                                                                   class="quantity-field">
-                                                            <input type="button" value="+"
-                                                                   class="button-plus inc button ">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>{{$item->price}}</li>
-                                        <li><a class="confirm-text" id="deleteItemById" data="{{$item->id}}"><img
-                                                    src="{{ URL::asset('/assets/img/icons/delete-2.svg')}}"
-                                                    alt="img"></a></li>
-                                    </ul>
+                                    <tr class="details" style="border-bottom:1px solid #E9ECEF ;">
+                                        <td>
+                                            {{$item->product->name}}
+                                        </td>
+                                        <td style="padding: 10px;vertical-align: top; ">
+                                            {{$item->price}}
+                                        </td>
+                                        <td style="padding: 10px;vertical-align: top; ">
+                                            {{$item->quantity}}
+                                        </td>
+                                        <td style="padding: 10px;vertical-align: top; ">
+                                            {{$item->total}}
+                                        </td>
+
+                                    </tr>
                                 @endforeach
                             @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Check customer exists -->
-            <div class="modal fade" id="validateCustomerData" tabindex="-1" aria-labelledby="create" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">تعريف زبون </h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <span id="message" class="d-none"> تعريف زبون جديد </span>
-                                <form class="form-inline">
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <label for="mobileNumber" class="sr-only">mobileNumber</label>
-                                        <input type="text" class="form-control" name="mobile_number"
-                                               id="customerName" placeholder="اسم الزبون" required>
-                                        <div class="d-float w-100">
-                                            <div class="d-none" id="customersDropDownMenu"
-                                                 style="position: absolute;z-index: 1000;width:400px;max-width:400px;background-color: #fff">
-                                                <a class="dropdown-header" href="#">Customers</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a class="btn btn-primary mb-2" onclick="validateMobileNumber()">
-                                        التحقق من اسم الزبون
-                                    </a>
-                                </form>
-                            </div>
-                            <div id="extension-validate-user-form" class="d-none">
-                                <form method="post" action="{{route('create-customer')}}" id="create-user-form"
-                                      class="form-inline">
-                                    {{csrf_field()}}
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <label for="inputName" class="sr-only">Name</label>
-                                        <input type="text" class="form-control" name="name" id="inputName"
-                                               placeholder="اسم الزبون" required autofocus>
-                                    </div>
-                                    <div class="select-group">
-                                        <select class="select" name="customer-type" required>
-                                            @foreach($types as $type)
-                                                <option value="{{$type->id}}">{{$type->value}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                        </table>
 
-                                    <button type="submit" class="btn btn-primary mb-2">
-                                        تعريف زبون
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- end Check customer exists -->
-            <!-- add to cart modal -->
-            <div id="addToCartModal" class="modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">اضافة منتج الى السلة</h5>
-                            <button type="button" class="close" data-dismiss="modal" id="add-product-to-cart-modal"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form id="addToCartPopup" method="post" action="{{route('addItemToCart')}}">
-                            {{csrf_field()}}
-                            <div class="modal-body">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="fs-6">اسم المنتج :</p>
-                                        <p class="fs-6" id="product-name"></p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <p class="fs-6"> كمية المنتج :</p>
-                                        <p class="fs-6" id="product-qty"></p>
-                                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-6 ">
+                                <div class="total-order w-100 max-widthauto m-auto mb-4">
+                                    <ul>
+                                        <li>
+                                            <h4>قيمه الفاتوره</h4>
+                                            <h5>{{data_get($cart,'total',0)}}</h5>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <input hidden name="product_id" id="product-id"/>
-                                <input type="number" class="form-control" value="1" min="1"
-                                       id="quantity" name="quantity" placeholder="الكميه المطلوبه" required/>
-                                <input type="number" class="form-control" step="any"
-                                       id="price" name="price" placeholder="السعر" required/>
                             </div>
-                            <div class="modal-footer">
-                                <a onclick="submitCartForm()" class="btn btn-primary">اضافه</a>
+                            <div class="col-lg-6 ">
+                                <div class="total-order w-100 max-widthauto m-auto mb-4">
+                                    <ul>
+                                        <li>
+                                            <h4>كاش</h4>
+                                            <h5>{{ 0.00}}</h5>
+                                        </li>
+                                        <li class="total">
+                                            <h4>ذمم</h4>
+                                            <h5>{{ 0.00}}</h5>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="col-lg-12">
+                            <a href="{{url('saleslist')}}" class="btn btn-cancel">لائحه الطلبات</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- end add to cart modal -->
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <script async>
-            const data = {}
-            $(document).ready(function () {
-                $('#search').on('change', function () {
-                    var numbers = /^[0-9]+$/;
-                    if (this.value.match(numbers)) {
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script async>
+        let productData = {};
+        $(document).ready(function () {
+            $('#search').on('input', function () {
+                if (!this.value.match(/^[0-9]+$/)) {
+                    if (this.value) {
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{config('app.url')}}/api/products?name=" + this.value,
+                            headers: {'Accept': 'Application/json'},
+                            success: function (data) {
+                                const productDropDown = $("#productsDropDownMenu");
+                                $('.suggestions').remove();
+                                if (data.data.length > 0) {
+                                    data.data.forEach(function (product, index) {
+                                        productDropDown.append("<a class='dropdown-item suggestions' id='product-suggestions-" + index + "' data-id='" + product.id + "'data-price='" + product.price_value + "'>" + product.name + "</a>")
+                                    });
+                                    productDropDown.removeClass('d-none');
+                                } else {
+                                    $("#productsDropDownMenu").addClass('d-none');
+                                }
+                            }
+                        });
+                    } else {
+                        $("#productsDropDownMenu").addClass('d-none');
+                    }
+                } else {
+                    if (this.value.length >= 13) {
                         $.ajax({
                             type: 'GET',
                             url: "{{config('app.url')}}/api/products?barcode=" + this.value,
                             headers: {'Accept': 'Application/json'},
                             success: function (data) {
-                                console.log(data.data)
+
                                 if (data.data.length > 0) {
                                     const product = data.data[0]
-                                    $('#product-name').text(product.name)
-                                    $('#product-qty').text(product.quantity)
-                                    $('#product-id').val(product.id)
-                                    $('#addToCartModal').modal('show')
+                                    $('#search').val(product.name)
+                                    $('.suggestions').remove()
+                                    $('#input-selling-price').val(product.price_value)
+                                    $('#input-selling-price').focus()
+                                    productData = {
+                                        "product_id": product.id,
+                                        "price": product.price_value
+                                    }
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
@@ -343,215 +279,144 @@
                             }
                         });
                     }
-                });
-                $('#search').on('input', function () {
-                    var numbers = /^[0-9]+$/;
-                    if (!this.value) {
-                        $("#productsDropDownMenu").addClass('d-none');
-                    }
-                    if (!this.value.match(numbers) && this.value) {
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{config('app.url')}}/api/product",
-                            data: {name: this.value},
-                            headers: {'Accept': 'Application/json'},
-                            success: function (data) {
-                                const productDropDown = $("#productsDropDownMenu");
-                                if (data.data.length > 0) {
-                                    $('.suggestions').remove();
-                                    data.data.forEach(function (item) {
-                                        productDropDown.append("<a class='dropdown-item suggestions' onclick='addItemToCart(" + item.id + ")'>" + item.name + "</a>")
-                                    });
-                                    productDropDown.removeClass('d-none');
-                                }
-                            }
-                        });
-                    }
-                })
-                $('#customerName').on('input', function () {
-                    if (this.value) {
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{config('app.url')}}/api/customer",
-                            headers: {'Accept': 'Application/json'},
-                            data: {task: this.value},
-                            success: function (data) {
-                                console.log(data.data)
-                                const customerDropDown = $("#customersDropDownMenu");
-                                $('.customer-suggestions').remove();
-                                if (data.data.length > 0) {
-                                    data.data.forEach(function (customer) {
-                                        customerDropDown.append("<a class='dropdown-item customer-suggestions' onclick='setActiveCustomer(" + customer.id + ")'>" + customer.name + "</a>")
-                                    });
-                                    customerDropDown.removeClass('d-none');
-                                } else {
-                                    $("#customersDropDownMenu").addClass('d-none');
-                                }
-                            }
-                        });
-                    } else {
-                        $("#customersDropDownMenu").addClass('d-none');
-                    }
-                })
-
-                $('#active-customers').on('change', function () {
-                    setActiveCustomer(this.value)
-                })
-                $('#add-product-to-cart-modal').click(() => {
-                    $('#addToCartModal').modal('hide');
-                })
-                $('#payment-method-select').on('change', function () {
-                    if (this.value === 'cash') {
-                        $("#debit_amount").addClass('d-none')
-                    } else {
-                        $("#debit_amount").removeClass('d-none')
-                    }
-                })
-                $('#order-creation-button').click(function () {
-                    const itemCount = parseInt($('#cart-items-count').text());
-                    if (!itemCount) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: "الفاتوره فارغه",
-                            text: 'يرجِى اضافه عناصر الى الفاتوره',
-                        })
-                    }
-
-                    const paymentMethod = $('#payment-method-select').find(":selected").val();
-                    const debit_amount = $("#debit_amount").val()
-                    console.log(debit_amount)
-                    if (!paymentMethod) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: "Payment Error",
-                            text: 'Please select a payment method',
-                        })
-                    }
-                    if (paymentMethod === 'debit') {
-                        if (!debit_amount) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: "",
-                                text: 'الرجاء إضافة قيمه الذمم لعملية الذمم',
-                            })
-                        }
-                        if (debit_amount > parseFloat($("#total_amount").text())) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: "",
-                                text: 'لا يمكن لقيمه الذمم ان تكون اكبر من قيمه الفاتوره',
-                            })
-                        }
-                    }
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{config('app.url')}}/api/order",
-                        headers: {'Accept': 'Application/json'},
-                        data: {payment_method: paymentMethod,debit_amount_label: debit_amount},
-                        success: function (response) {
-                            console.log(response.data.id)
-                            Swal.fire({
-                                icon: 'success',
-                                title: "Order",
-                                text: 'Order created successfully',
-                            }).then(function () {
-                                window.open("{{config('app.url').'/print/'}}" + response.data.id);
-                                location.reload();
-                            })
-                        },
-                    });
-                })
-                $('#deleteItemById').on('click', function () {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{config('app.url')}}/api/cart/deleteItemById",
-                        headers: {'Accept': 'Application/json'},
-                        data: {itemId: $(this).attr('data')},
-                        success: function () {
-                            location.reload()
-                        },
-                    });
-                });
+                }
             })
-
-            const addItemToCart = function (id) {
-                console.log(id);
-                $("#productsDropDownMenu").addClass('d-none');
-                $.ajax({
-                    type: 'GET',
-                    url: "{{config('app.url')}}/api/products/" + id,
-                    headers: {'Accept': 'Application/json'},
-                    success: function (data) {
-                        console.log(data.data)
-                        if (data.data) {
-                            const product = data.data
-                            $('#product-name').text(product.name)
-                            $('#product-qty').text(product.quantity)
-                            $('#product-id').val(product.id)
-                            $('#addToCartModal').modal('show')
-                        }
-                    }
-                });
-            }
-
-            const validateMobileNumber = function () {
-                const name = $('#customerName').val();
-                $.ajax({
-                    type: 'GET',
-                    url: "{{config('app.url')}}/api/customers?name=" + name,
-                    headers: {'Accept': 'Application/json'},
-                    success: function (response) {
-                        if (response.data.length == 0) {
-                            $('#message').html('الزبون غير موجود').removeClass('d-none')
-                            $('#inputName').val(name)
-                            $("#extension-validate-user-form").removeClass('d-none')
+            $('#search').on('keydown', function (event) {
+                console.log(this.value)
+                const productsDropDown = $("#productsDropDownMenu");
+                let activeChild = productsDropDown.attr('active-child-index')
+                if (productsDropDown.children().length) {
+                    activeChild = parseInt(activeChild)
+                    if (event.keyCode === 40) {
+                        if (isNaN(activeChild)) {
+                            $("#product-suggestions-0").addClass('bg-secondary')
+                            productsDropDown.attr('active-child-index', 0)
+                        } else if (activeChild >= productsDropDown.children().length - 1) {
+                            $("#product-suggestions-" + activeChild).removeClass('bg-secondary')
+                            nextActiveChild = 0
+                            productsDropDown.attr('active-child-index', nextActiveChild)
+                            $("#product-suggestions-" + nextActiveChild).addClass('bg-secondary')
                         } else {
-                            $('#message').html('الزبون موجود').removeClass('d-none')
-                            $('#validateCustomerData').modal('hide')
-                            location.reload()
+                            $("#product-suggestions-" + activeChild).removeClass('bg-secondary')
+                            nextActiveChild = parseInt(activeChild) + 1
+                            productsDropDown.attr('active-child-index', nextActiveChild)
+                            $("#product-suggestions-" + nextActiveChild).addClass('bg-secondary')
                         }
-
-                    },
-                });
-            }
-            const setActiveCustomer = function (id) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{config('app.url')}}/api/active_customer",
-                    headers: {'Accept': 'Application/json'},
-                    data: {customerId: id},
-                    success: function (response) {
-                        console.log(response.data)
-                        location.reload()
-                    },
-                });
-            }
-            const submitCartForm = function () {
-                const availableQuantity = parseInt($("#product-qty").text())
-                const requestedQuantity = $("#quantity").val()
-                if (requestedQuantity < 1) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: "خطأ",
-                        text: 'الكميه لا يمكن ان تكون اقل من ١',
-                    })
-                } else {
-                    if (availableQuantity < requestedQuantity) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: "خطأ",
-                            text: 'الكميه الموجوده لا تكفي',
-                        })
-                    } else {
-                        $('#addToCartPopup').submit();
+                    } else if (event.keyCode === 13) {
+                        const selectedProductSuggestion = $("#product-suggestions-" + activeChild)
+                        $('#search').val(selectedProductSuggestion.text())
+                        $('.suggestions').remove()
+                        $('#input-selling-price').val(selectedProductSuggestion.attr("data-price"))
+                        $('#input-selling-price').focus()
+                        productData = {
+                            "product_id": selectedProductSuggestion.attr("data-id"),
+                            "price": selectedProductSuggestion.attr("data-price")
+                        }
                     }
                 }
+            })
+            $('#quantity-field').on('change', function (event) {
+                productData['quantity'] = this.value
+                $.ajax({
+                    type: 'POST',
+                    url: "{{config('app.url')}}/api/cart/addItemToCart",
+                    headers: {'Accept': 'Application/json'},
+                    data: productData,
+                    success: function (data) {
+                        if (data.success) {
+                            location.reload()
+                        }
+                    }
+                });
+            })
+            $('#customerName').on('input', function () {
+                if (this.value) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{config('app.url')}}/api/customer",
+                        headers: {'Accept': 'Application/json'},
+                        data: {task: this.value},
+                        success: function (data) {
+                            const customerDropDown = $("#customersDropDownMenu");
+                            $('.customer-suggestions').remove();
+                            if (data.data.length > 0) {
+                                data.data.forEach(function (customer, index) {
+                                    customerDropDown.append("<a class='dropdown-item customer-suggestions' id='customer-suggestions-" + index + "' data-id='" + customer.id + "'>" + customer.name + "</a>")
+                                });
+                                customerDropDown.removeClass('d-none');
+                            } else {
+                                $("#customersDropDownMenu").addClass('d-none');
+                            }
+                        }
+                    });
+                } else {
+                    $("#customersDropDownMenu").addClass('d-none');
+                }
+            })
+            $('#customerName').on('keydown', function (event) {
+                const customerDropDown = $("#customersDropDownMenu");
+                let activeChild = customerDropDown.attr('active-child-index')
+                if (event.keyCode === 9) {
+                    $('.customer-suggestions').remove();
+                    $("#customerTypeSelect").removeClass('d-none')
+                }
 
-            }
-            const validateCustomer = function () {
-                $('#validateCustomerData').modal('show');
-            }
-        </script>
-    @component('components.modal-popup')
-    @endcomponent
+                if (customerDropDown.children().length) {
+                    activeChild = parseInt(activeChild)
+                    if (event.keyCode === 40) {
+                        if (isNaN(activeChild)) {
+                            $("#customer-suggestions-0").addClass('bg-secondary')
+                            customerDropDown.attr('active-child-index', 0)
+                        } else if (activeChild >= customerDropDown.children().length - 1) {
+                            $("#customer-suggestions-" + activeChild).removeClass('bg-secondary')
+                            nextActiveChild = 0
+                            customerDropDown.attr('active-child-index', nextActiveChild)
+                            $("#customer-suggestions-" + nextActiveChild).addClass('bg-secondary')
+                        } else {
+                            $("#customer-suggestions-" + activeChild).removeClass('bg-secondary')
+                            nextActiveChild = parseInt(activeChild) + 1
+                            customerDropDown.attr('active-child-index', nextActiveChild)
+                            $("#customer-suggestions-" + nextActiveChild).addClass('bg-secondary')
+                        }
+                    } else if (event.keyCode === 38) {
+                        console.log("key up cursor")
+                    } else if (event.keyCode === 13) {
+                        const selectedCustomerId = $("#customer-suggestions-" + activeChild).attr('data-id')
+                        setActiveCustomer(selectedCustomerId)
+                    }
+                }
+            })
+            $("#select-customer-type").on('change', function () {
+                createCustomer($("#customerName").val(), this.value)
+            })
+        });
+
+        const createCustomer = function (name, type) {
+            $.ajax({
+                type: 'POST',
+                url: "{{config('app.url')}}/api/customers",
+                headers: {'Accept': 'Application/json'},
+                data: {
+                    'name': name,
+                    'customer_type_id': type
+                },
+                success: function (response) {
+                    console.log(response.data)
+                    location.reload()
+                },
+            });
+        }
+        const setActiveCustomer = function (id) {
+            $.ajax({
+                type: 'POST',
+                url: "{{config('app.url')}}/api/active_customer",
+                headers: {'Accept': 'Application/json'},
+                data: {customerId: id},
+                success: function (response) {
+                    console.log(response.data)
+                    location.reload()
+                },
+            });
+        }
+    </script>
 @endsection
