@@ -102,7 +102,6 @@
         .total {
             font-size: 13px;
             border-top: 1px dashed black !important;
-            border-bottom: 1px dashed black !important;
         }
 
         .total.text, .total.price {
@@ -154,11 +153,18 @@
         <th class="center-align" colspan="2"><span class="receipt">0797341358</span></th>
     </tr>
     <tr>
-        <td>التاريخ : <span>{{\Carbon\Carbon::parse($order->created_at)->format('d/m/Y')}}</span></td>
+        <td>التاريخ : <span>{{\Carbon\Carbon::parse($order->created_at)->format('d/m/Y h:i:s')}}</span></td>
     </tr>
     <tr>
         <td>اسم العميل: <span>{{$customer->name}}</span></td>
         <td> #<span>{{$order->id}}</span></td>
+    </tr>
+    <tr>
+        <td>طريقه الدفع: <span>{{$order->payment_method === 'cash' ? 'كاش' : 'ذمم'}}</span></td>
+        <td> عدد الاصناف: {{$order->items->sum('quantity')}} </td>
+
+    </tr>
+    <tr>
     </tr>
     </tbody>
 </table>
@@ -175,20 +181,16 @@
 
     <tbody>
     @foreach($order->items as $item)
-        <tr>
+        <tr style="border-bottom: 1px dashed black">
             <td>{{$item->product->name}}</td>
             <td>{{$item->quantity}}</td>
             <td>{{$item->price}}</td>
             <td>{{$item->total}}</td>
         </tr>
     @endforeach
-    <tr>
-        <th colspan="3" class="total text">المجموع</th>
-        <th class="total">{{$order->items->sum('total')}}</th>
-    </tr>
-    <tr>
-        <th colspan="3" class="total text">طريقه الدفع</th>
-        <th class="total">{{$order->payment_method}}</th>
+    <tr style="padding-top: 10px">
+        <th colspan="3" style="border-bottom: 1px dashed black" class="total text">المجموع</th>
+        <th class="total" style="border-bottom: 1px dashed black">{{$order->items->sum('total')}}</th>
     </tr>
     </tbody>
 </table>
