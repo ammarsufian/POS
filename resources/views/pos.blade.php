@@ -203,21 +203,29 @@
                             </div>
                             <div class="col-lg-6 ">
                                 <div class="total-order w-100 max-widthauto m-auto mb-4">
-                                    <ul>
-                                        <li>
-                                            <h4>كاش</h4>
-                                            <h5>{{ 0.00}}</h5>
-                                        </li>
-                                        <li class="total">
-                                            <h4>ذمم</h4>
-                                            <h5>{{ 0.00}}</h5>
-                                        </li>
+                                    <form id="order-form">
+                                        <div class="setvaluecash">
+                                            <div class="select-group w-100">
+                                                {{csrf_field()}}
+                                                <select required class="select form-control" id="payment-method-select"
+                                                        name="payment-method">
+                                                    <option disabled>طريقة الدفع</option>
+                                                    <option value="cash">كاش</option>
+                                                    <option value="debit">ذمم</option>
+                                                </select>
+
+                                                <input class="form-control mt-3 d-none" name="debit_amount"
+                                                       id="debit_amount" type="text" autofocus autocomplete="off"
+                                                       placeholder="قيمة الذمم">
+                                            </div>
+                                        </div>
+                                    </form>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <a href="{{url('saleslist')}}" class="btn btn-cancel">لائحه الطلبات</a>
+                            <a id="order-creation-button" class="btn btn-primary">تاكيد الطلب</a>
                         </div>
                     </div>
                 </div>
@@ -389,6 +397,77 @@
             $("#select-customer-type").on('change', function () {
                 createCustomer($("#customerName").val(), this.value)
             })
+            $('#payment-method-select').on('change', function () {
+                if (this.value === 'cash') {
+                    $("#debit_amount").addClass('d-none')
+                } else {
+                    $("#debit_amount").removeClass('d-none')
+                }
+            })
+            $('#order-creation-button').click(function () {
+                const itemCount = parseInt($('#cart-items-count').text());
+                if (!itemCount) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "الفاتوره فارغه",
+                        text: 'يرجِى اضافه عناصر الى الفاتوره',
+                    })
+                }
+
+                const paymentMethod = $('#payment-method-select').find(":selected").val();
+                const debit_amount = $("#debit_amount").val()
+                if (!paymentMethod) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Payment Error",
+                        text: 'Please select a payment method',
+                    })
+                }
+                if (paymentMethod === 'debit') {
+                    if (!debit_amount) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "",
+                            text: 'الرجاء إضافة قيمه الذمم لعملية الذمم',
+                        })
+                    }
+                    if (debit_amount > parseFloat($("#total_amount").text())) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "",
+                            text: 'لا يمكن لقيمه الذمم ان تكون اكبر من قيمه الفاتوره',
+                        })
+                    }
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "{{config('app.url')}}/api/order",
+                    headers: {'Accept': 'Application/json'},
+                    data: {payment_method: paymentMethod, debit_amount_label: debit_amount},
+                    success: function (response) {
+                        console.log(response.data.id)
+                        Swal.fire({
+                            icon: 'success',
+                            title: "Order",
+                            text: 'Order created successfully',
+                        }).then(function () {
+                            window.open("{{config('app.url').'/print/'}}" + response.data.id);
+                            location.reload();
+                        })
+                    },
+                });
+            })
+            $('#deleteItemById').on('click', function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{config('app.url')}}/api/cart/deleteItemById",
+                    headers: {'Accept': 'Application/json'},
+                    data: {itemId: $(this).attr('data')},
+                    success: function () {
+                        location.reload()
+                    },
+                });
+            });
         });
 
         const createCustomer = function (name, type) {
