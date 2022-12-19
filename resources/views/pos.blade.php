@@ -130,7 +130,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>اسم المنتج</label>
-                                    <input id="search" type="text">
+                                    <input id="search" type="text" autofocus>
                                     <div id="productsDropDownParent" class=w-20">
                                         <div class="d-none" id="productsDropDownMenu"
                                              style="position: absolute;z-index: 8;width:400px;max-width:400px;background-color: #fff">
@@ -354,6 +354,7 @@
                                 customerDropDown.removeClass('d-none');
                             } else {
                                 $("#customersDropDownMenu").addClass('d-none');
+                                $("#customerTypeSelect").removeClass('d-none');
                             }
                         }
                     });
