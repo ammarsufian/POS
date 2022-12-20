@@ -15,6 +15,8 @@ class CartItem extends Model
 
     protected $guarded = [];
 
+    protected $appends =['total'];
+
     protected static function newFactory()
     {
         return CartItemFactory::new();
@@ -23,5 +25,10 @@ class CartItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->price * $this->quantity;
     }
 }

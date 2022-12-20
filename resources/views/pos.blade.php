@@ -62,6 +62,18 @@
         <div class="content">
             <div class="card">
                 <div class="card-body">
+                    <div class="col-lg-4">
+                        <div class="select-split ">
+                            <div class="select-group w-100">
+                                <select hidden class="select" id="active-customers">
+                                    <option disabled selected>الزبائن الحاليين</option>
+                                    @foreach($customers_list as $customer)
+                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="invoice-box table-height"
                          style="max-width: 1600px;width:100%;overflow: auto;margin:15px auto;padding: 0;font-size: 14px;line-height: 24px;color: #555;">
 
@@ -92,39 +104,8 @@
                                                 style="vertical-align: inherit;font-size: 14px;color:#2E7D32;font-weight: 400;">{{$debit_amount}}</font></font><br>
                                     </td>
                                 </tr>
-                            @else
-                                <tr>
-                                    <td style="padding:5px;vertical-align:top;text-align:right;padding-bottom:20px">
-                                        <div class="row d-inline-flex flex-row flex-nowrap">
-                                            <div class="flex-1 mx-sm-3 mb-2">
-                                                <label for="mobileNumber">اسم الزبون</label>
-                                                <input type="text" class="form-control"
-                                                       style="max-width:40vw" name="customerName"
-                                                       id="customerName" placeholder="اسم الزبون"
-                                                       autocomplete="off" required>
-                                                <div class="d-float w-20">
-                                                    <div class="d-none" id="customersDropDownMenu"
-                                                         style="position: absolute;z-index: 1000;width:400px;max-width:400px;background-color: #fff">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="customerTypeSelect" class="d-none flex-2 mx-sm-3 mb-2">
-                                                <label for="mobileNumber">نوع الزبون</label>
-                                                <div class="select-group" style="max-width:40vw">
-                                                    <select class="select" name="customer-type"
-                                                            id="select-customer-type" required>
-                                                        <option disabled selected> customer type</option>
-                                                        @foreach($types as $type)
-                                                            <option
-                                                                value="{{$type->id}}">{{$type->value}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
                             @endif
+
                         </table>
                         <div class="row col-lg-12">
                             <div class="col-lg-3 col-sm-6 col-12">
@@ -166,6 +147,9 @@
                                 <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
                                     المجموع
                                 </td>
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                    عمليات
+                                </td>
                             </tr>
                             @if(!empty($cart))
                                 @foreach(data_get($cart,'items') as $item)
@@ -182,7 +166,11 @@
                                         <td style="padding: 10px;vertical-align: top; ">
                                             {{$item->total}}
                                         </td>
-
+                                        <td style="padding: 10px;vertical-align: top; ">
+                                            <a class="confirm-text" id="deleteItemById" data="{{$item->id}}"><img
+                                                    src="{{ URL::asset('/assets/img/icons/delete-2.svg')}}"
+                                                    alt="img"></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -232,10 +220,61 @@
             </div>
         </div>
     </div>
+    {{--  start define new customer modal  --}}
+    <div id="define-new-customer" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex flex-column">
+                        <div class="flex-1 mx-sm-3 mb-2">
+                            <label for="mobileNumber">اسم الزبون</label>
+                            <input type="text" class="form-control"
+                                   style="max-width:40vw" name="customerName"
+                                   id="customerName" placeholder="اسم الزبون"
+                                   autocomplete="off" required autofocus>
+                            <div class="d-float w-20">
+                                <div class="d-none" id="customersDropDownMenu"
+                                     style="position: absolute;z-index: 1000;width:400px;max-width:400px;background-color: #fff">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="customerTypeSelect" class="d-none flex-2 mx-sm-3 mb-2">
+                            <label for="mobileNumber">نوع الزبون</label>
+                            <div class="select-group" style="max-width:40vw">
+                                <select class="select" name="customer-type"
+                                        id="select-customer-type" required>
+                                    <option disabled selected> customer type</option>
+                                    @foreach($types as $type)
+                                        <option
+                                            value="{{$type->id}}">{{$type->value}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end define new customer modal   --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script async>
         let productData = {};
         $(document).ready(function () {
+            $(document).on('keydown',function(event){
+                if(event.keyCode === 16){
+                    $("#define-new-customer").show()
+                    $("#customerName").focus()
+                }else if(event.keyCode === 27){
+                    $("#define-new-customer").hide()
+                }
+                console.log(event.keyCode);
+            })
+
+            $('.close-modal').on('click',function (){
+                $("#define-new-customer").hide()
+            })
+
             $('#search').on('input', function () {
                 if (!this.value.match(/^[0-9]+$/)) {
                     if (this.value) {
@@ -469,6 +508,9 @@
                     },
                 });
             });
+            $('#active-customers').on('change', function () {
+                setActiveCustomer(this.value)
+            })
         });
 
         const createCustomer = function (name, type) {
