@@ -41,6 +41,7 @@ class AddCustomerTransactionListener
                 'total' => $event->data['debit_amount_label'],
                 'status' => 'pending',
                 'order_id' => $event->order->id,
+                'payment_type' => 'debit'
             ]);
 
         }

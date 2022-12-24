@@ -20,7 +20,7 @@ class PosController extends Controller
 
         if ($customer) {
             $cart = Cart::where('customer_id', $customer->id)->first();
-            $debit_amount =CustomerTransaction::where('customer_id', $customer->id)->where('status', 'pending')->sum('total');
+            $debit_data =CustomerTransaction::where('customer_id', $customer->id)->where('status', 'pending')->where('payment_type', 'debit');
         }
 
         return view('pos')->with([
@@ -28,7 +28,8 @@ class PosController extends Controller
             'active_customer' => $customer ?? null,
             'cart' => $cart ? (CartResource::make($cart))->resolve() : null,
             'customers_list' => Customer::whereHas('cart')->get(),
-            'debit_amount' => $debit_amount ??0
+            'debit_amount' => $debit_data->sum('total') ??0,
+            'debits_history' => $debit_data->get()
         ]);
     }
 }

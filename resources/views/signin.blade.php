@@ -15,7 +15,7 @@
                 <div class="form-login">
                     <label>الإيميل</label>
                     <div class="form-addons">
-                        <input type="text" name="email" id="Email" value="admin@example.com">
+                        <input type="text" name="email" id="Email">
                         <img src="{{URL::asset('/assets/img/icons/mail.svg')}}" alt="img">
                     </div>
                     <div class="text-danger pt-2">
@@ -30,7 +30,7 @@
                 <div class="form-login">
                     <label>كلمة السر</label>
                     <div class="pass-group">
-                        <input type="password" class="pass-input" name="password" id="password" value="123456">
+                        <input type="password" class="pass-input" name="password" id="password">
                         <span class="fas toggle-password fa-eye-slash"></span>
                     </div>
                     <div class="text-danger pt-2">

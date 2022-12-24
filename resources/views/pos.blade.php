@@ -220,6 +220,56 @@
             </div>
         </div>
     </div>
+    <div class="">
+        <div class="content">
+            <div class="card">
+                <div class="card-body">
+                    <div class="invoice-box table-height"
+                         style="max-width: 1600px;width:100%;overflow: auto;margin:15px auto;padding: 0;font-size: 14px;line-height: 24px;color: #555;">
+                        <center style="font-size: 17pt;margin:5px;"> فواتير ذمم</center>
+                        <br>
+                        <table width="100%">
+                            <tr class="heading " style="background: #F3F2F7;">
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                   رقم الفاتوره
+                                </td>
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                   قيمه الفاتوره
+                                </td>
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                    التاريخ
+                                </td>
+                                <td style="padding: 5px;vertical-align: middle;font-weight: 600;color: #5E5873;font-size: 14px;padding: 10px; ">
+                                    عمليات
+                                </td>
+                            </tr>
+                            @if(!empty($debits_history))
+                                @foreach($debits_history as $debit)
+                                    <tr class="details" style="border-bottom:1px solid #E9ECEF ;">
+                                        <td>
+                                            #{{$debit->order_id}}
+                                        </td>
+                                        <td style="padding: 10px;vertical-align: top; ">
+                                            {{$debit->total}}
+                                        </td>
+                                        <td style="padding: 10px;vertical-align: top; ">
+                                            {{$debit->created_at->toDateTimeString()}}
+                                        </td>
+                                        <td style="padding: 10px;vertical-align: top; ">
+                                            <a class="pay-debit-invoice" title="دفع الفاتوره" data="{{$debit->id}}"><img
+                                                    src="{{ URL::asset('/assets/img/icons/cash.svg')}}"
+                                                    alt="img"></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{--  start define new customer modal  --}}
     <div id="define-new-customer" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -268,7 +318,19 @@
                 }else if(event.keyCode === 27){
                     $("#define-new-customer").hide()
                 }
-                console.log(event.keyCode);
+            })
+
+            $('.pay-debit-invoice').on('click',function (){
+                console.log($(this).attr('data'))
+                $.ajax({
+                    type: 'POST',
+                    url: "{{config('app.url')}}/api/pay-invoice",
+                    headers: {'Accept': 'Application/json'},
+                    data:{invoice_id:$(this).attr('data')},
+                    success: function (data) {
+                        location.reload()
+                    }
+                });
             })
 
             $('.close-modal').on('click',function (){
@@ -305,7 +367,6 @@
                             url: "{{config('app.url')}}/api/products?barcode=" + this.value,
                             headers: {'Accept': 'Application/json'},
                             success: function (data) {
-
                                 if (data.data.length > 0) {
                                     const product = data.data[0]
                                     $('#search').val(product.name)
@@ -329,7 +390,6 @@
                 }
             })
             $('#search').on('keydown', function (event) {
-                console.log(this.value)
                 const productsDropDown = $("#productsDropDownMenu");
                 let activeChild = productsDropDown.attr('active-child-index')
                 if (productsDropDown.children().length) {
@@ -364,6 +424,7 @@
             })
             $('#quantity-field').on('change', function (event) {
                 productData['quantity'] = this.value
+                productData['price'] = $("#input-selling-price").val()
                 $.ajax({
                     type: 'POST',
                     url: "{{config('app.url')}}/api/cart/addItemToCart",
@@ -426,8 +487,6 @@
                             customerDropDown.attr('active-child-index', nextActiveChild)
                             $("#customer-suggestions-" + nextActiveChild).addClass('bg-secondary')
                         }
-                    } else if (event.keyCode === 38) {
-                        console.log("key up cursor")
                     } else if (event.keyCode === 13) {
                         const selectedCustomerId = $("#customer-suggestions-" + activeChild).attr('data-id')
                         setActiveCustomer(selectedCustomerId)
@@ -485,7 +544,6 @@
                     headers: {'Accept': 'Application/json'},
                     data: {payment_method: paymentMethod, debit_amount_label: debit_amount},
                     success: function (response) {
-                        console.log(response.data.id)
                         Swal.fire({
                             icon: 'success',
                             title: "Order",
@@ -512,7 +570,6 @@
                 setActiveCustomer(this.value)
             })
         });
-
         const createCustomer = function (name, type) {
             $.ajax({
                 type: 'POST',
@@ -523,7 +580,6 @@
                     'customer_type_id': type
                 },
                 success: function (response) {
-                    console.log(response.data)
                     location.reload()
                 },
             });
@@ -535,7 +591,6 @@
                 headers: {'Accept': 'Application/json'},
                 data: {customerId: id},
                 success: function (response) {
-                    console.log(response.data)
                     location.reload()
                 },
             });

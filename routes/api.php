@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CustomerTransactionController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::post('/product',[ProductController::class,'search']);
 Route::get('/customers',[CustomerController::class,'index']);
 Route::post('/customers',[CustomerController::class,'store']);
 Route::post('active_customer',[CustomerController::class,'activeCustomer']);
+Route::post('pay-invoice',[CustomerTransactionController::class,'payDebitInvoice']);
 Route::post('customer',[CustomerController::class,'search']);
 Route::post('/cart/deleteItemById',[CartItemController::class,'deleteItemById']);
 Route::post('/cart/addItemToCart',[CartItemController::class,'store']);
