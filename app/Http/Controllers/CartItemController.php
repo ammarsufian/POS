@@ -18,7 +18,7 @@ class CartItemController extends Controller
                 $cartItem = $cart->items()->where('product_id', $request->get('product_id'))->first();
 
                 if ($cartItem)
-                    $cartItem->update(['quantity' => $cartItem->quantity + $request->get('quantity')]);
+                    $cartItem->update(['quantity' => $request->get('quantity')]);
                 else
                     $cart->items()->create([
                         'product_id' => $request->get('product_id'),
