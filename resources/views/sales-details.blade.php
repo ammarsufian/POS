@@ -62,7 +62,7 @@
                                                 <font style="vertical-align: inherit;"><font
                                                         style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">#{{$order->id}} </font></font><br>
                                                 <font style="vertical-align: inherit;"><font
-                                                        style="vertical-align: inherit;font-size: 14px;color:#2E7D32;font-weight: 400;">{{$order->transactions->pluck('transaction_status')->count() == 1? 'كاش' : 'كاش /ذمم'}}</font></font><br>
+                                                        style="vertical-align: inherit;font-size: 14px;color:#2E7D32;font-weight: 400;">{{$order->transactions->pluck('payment_type')->count() == 1? 'كاش' : 'كاش /ذمم'}}</font></font><br>
                                             </td>
                                         </tr>
                                         </tbody>

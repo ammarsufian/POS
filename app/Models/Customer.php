@@ -12,11 +12,16 @@ class Customer extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $with = ['cart'];
+    protected $with = ['cart','orders'];
 
     public function cart(): HasOne
     {
         return $this->hasOne(Cart::class);
+    }
+
+    public function orders(): hasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function transactions(): HasMany

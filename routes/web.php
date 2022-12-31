@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ControlPageController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerTransactionController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
@@ -37,6 +38,7 @@ Route::post('/update-product/{product}', [ProductController::class, 'update'])->
 
 //Customer Management
 Route::post('/customer', [CustomerController::class, 'store'])->name('create-customer');
+Route::get('/financial-account-details/{customer}', [CustomerTransactionController::class, 'index'])->name('financial-account-details');
 
 //Point of sale Management
 Route::get('/pos', [PosController::class, 'index'])->name('pos');

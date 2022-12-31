@@ -152,7 +152,12 @@
     <tr>
         <th class="center-align" colspan="2"><span class="receipt">0797341358</span></th>
     </tr>
+    <br>
+    <br>
     <tr>
+        <th class="center-align" colspan="2"><span class="receipt" style="font-size: 15px" >فاتوره مشتريات</span></th>
+    </tr>
+    <tr rowspan="2">
         <td>التاريخ : <span>{{\Carbon\Carbon::parse($order->created_at)->format('d/m/Y h:i:s')}}</span></td>
     </tr>
     <tr>
@@ -162,7 +167,6 @@
     <tr>
         <td>طريقه الدفع: <span>{{$order->payment_method === 'cash' ? 'كاش' : 'ذمم'}}</span></td>
         <td> عدد الاصناف: {{$order->items->sum('quantity')}} </td>
-
     </tr>
     <tr>
     </tr>
@@ -182,20 +186,31 @@
     <tbody>
     @foreach($order->items as $item)
         <tr style="border-bottom: 1px dashed black">
-            <td>{{$item->product->name}}</td>
-            <td>{{$item->quantity}}</td>
-            <td>{{$item->price}}</td>
-            <td>{{$item->total}}</td>
+            <td class="text-center" style="text-align: center">{{$item->product->name}}</td>
+            <td class="text-center" style="text-align: center">{{$item->quantity}}</td>
+            <td class="text-center" style="text-align: center">{{$item->price}}</td>
+            <td class="text-center" style="text-align: center">{{$item->total}}</td>
         </tr>
     @endforeach
-    <tr style="padding-top: 10px">
-        <th colspan="3" style="border-bottom: 1px dashed black" class="total text">المجموع</th>
-        <th class="total" style="border-bottom: 1px dashed black">{{$order->items->sum('total')}}</th>
+
+    <tr style="padding-top:10px">
+        <th colspan="3"  class="total text">المجموع</th>
+        <th class="total" >{{$order->items->sum('total')}}</th>
     </tr>
+    <tr style="padding-top: 10px">
+        <th colspan="3"  class="total text">كاش</th>
+        <th class="total" >{{$order->transactions()->where('payment_type','cash')->sum('total')}}</th>
+    </tr>
+    @if($order->transactions()->where('payment_type','debit')->sum('total') > 0)
+    <tr style="padding-top: 10px">
+        <th colspan="3"  class="total text">ذمم</th>
+        <th class="total" >{{$order->transactions()->where('payment_type','debit')->sum('total')}}</th>
+    </tr>
+    @endif
     </tbody>
 </table>
 <section>
-    <p style="text-align:center">
+    <p style="padding-top:10px;text-align:center">
         شكرا لزيارتكم!
     </p>
 </section>

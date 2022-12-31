@@ -3,11 +3,6 @@
 @section('content')
 <div class="page-wrapper">
     <div class="content">
-{{--        @component('components.pageheader')--}}
-{{--			@slot('title') Sales List @endslot--}}
-{{--			@slot('title_1') Manage your sales @endslot--}}
-{{--		@endcomponent--}}
-        <!-- /product list -->
         <div class="card">
             <div class="card-body">
                 <div class="table-top">

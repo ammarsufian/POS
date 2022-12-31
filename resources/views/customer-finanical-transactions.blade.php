@@ -1,18 +1,30 @@
-<?php $page = "customerlist"; ?>
+<?php $page = "productlist"; ?>
 @extends('layout.mainlayout')
 @section('content')
     <div class="page-wrapper">
         <div class="content">
             @component('components.pageheader')
                 @slot('title')
-                    Brand List
+                    كشف حساب
                 @endslot
                 @slot('title_1')
-                    Manage your Brand
+                     اسم الزبون: {{$customer->name}}
                 @endslot
             @endcomponent
-
-            <!-- /product list -->
+            <div class="pr-4 row d-inline-flex flex-row flex-nowrap">
+                <div class="card flex-1 mr-3" style="width: 33vw;">
+                    <div class="card-body">
+                        <h5 class="card-title">رصيد الذمم</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{data_get($transactions,'debit_transactions')}}</h6>
+                    </div>
+                </div>
+                <div class="card flex-2 pr-3" style="width: 33vw;">
+                    <div class="card-body">
+                        <h5 class="card-title">رصيد الكاش</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{data_get($transactions,'cash_customer_transactions')}}</h6>
+                    </div>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div class="table-top">
@@ -33,28 +45,32 @@
                         <table class="table datanew">
                             <thead>
                             <tr>
-                                <th>اسم الزبون</th>
-                                <th>رقم الهاتف</th>
-                                <th>عدد الطلبيات</th>
-                                <th class="text-center">Action</th>
+                                <th>رقم الدفعه</th>
+                                <th>الطلب</th>
+                                <th>نوع الدفع</th>
+                                <th>المبلغ</th>
+                                <th>تاريخ التسجيل</th>
+                                <th class="text-center">العمليات</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($customers as $customer)
+                            @foreach($customer_transactions as $transaction)
                                 <tr>
-                                    <td>{{$customer->name}}</td>
-                                    <td>{{$customer->mobile_number}}</td>
-                                    <td>{{$customer->orders->count()}}</td>
+                                    <td>{{$transaction->id}}</td>
+                                    <td>{{$transaction->order_id}}</td>
+                                    <td>{{$transaction->payment_type}}</td>
+                                    <td>{{$transaction->total}}</td>
+                                    <td>{{$transaction->created_at->toDateTimeString()}}</td>
                                     <td class="text-center">
                                         <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                         </a>
-                                        <ul class="dropdown-menu"  >
+                                        <ul class="dropdown-menu">
                                             <li>
                                                 <a href="{{url('financial-account-details',['customer' => $customer->id])}}" class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/eye1.svg')}}" class="me-2" alt="img">كشف حساب</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('financial-account-details',['customer' => $customer->id])}}"  target="_blank"  class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/printer.svg')}}" class="me-2" alt="img">التفاصيل</a>
+                                                <a href="/print/{{$transaction->order_id}}"  target="_blank"  class="dropdown-item"><img src="{{ URL::asset('/assets/img/icons/printer.svg')}}" class="me-2" alt="img">طباعه  فاتوره الطلب</a>
                                             </li>
                                         </ul>
                                     </td>

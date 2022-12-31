@@ -7,13 +7,17 @@
                     <a class="{{ Request::is('index') ? 'active' : '' }}" href="{{url('index')}}" ><img src="{{ URL::asset('/assets/img/icons/dashboard.svg')}}" alt="img"><span> لوحة التحكم</span> </a>
                 </li>
                 <li class="submenu">
-                    <a class="{{ Request::is('productlist','addproduct','editbrand','product-details','editsubcategory','editcategory','categorylist','editproduct','addcategory','subcategorylist','subaddcategory','customerlist','addbrand','importproduct','barcode') ? 'active' : '' }} href="javascript:void(0);"><img src="{{ URL::asset('/assets/img/icons/product.svg')}}" alt="img"><span> المنتجات</span> <span class="menu-arrow"></span></a>
+                    <a class="{{ Request::is('productlist','addproduct','editbrand','product-details','editsubcategory','editcategory','categorylist','editproduct','addcategory','subcategorylist','subaddcategory') ? 'active' : '' }} href="javascript:void(0);"><img src="{{ URL::asset('/assets/img/icons/product.svg')}}" alt="img"><span> المنتجات</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a class="{{ Request::is('productlist','editproduct') ? 'active' : '' }}" href="{{url('productlist')}}">لائحة المنتجات</a></li>
                         <li><a class="{{ Request::is('addproduct','product-details') ? 'active' : '' }}"href="{{url('addproduct')}}">إضافة منتج جديد</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a class="{{ Request::is('customerlist','addbrand','importproduct','barcode') ? 'active' : '' }} href="javascript:void(0);"><img src="{{ URL::asset('/assets/img/icons/product.svg')}}" alt="img"><span> الزبائن</span> <span class="menu-arrow"></span></a>
+                    <ul>
                         <li><a class="{{ Request::is('customerlist') ? 'active' : '' }}"href="{{url('customerlist')}}">لائحة الزبائن</a></li>
-                        <li><a class="{{ Request::is('addbrand','editbrand') ? 'active' : '' }}"href="{{url('addbrand')}}">إضافة زبون جديد</a></li>
-{{--                        <li><a class="{{ Request::is('importproduct') ? 'active' : '' }}"href="{{url('importproduct')}}">Import Products</a></li>--}}
+{{--                        <li><a class="{{ Request::is('addbrand','editbrand') ? 'active' : '' }}"href="{{url('addbrand')}}">إضافة زبون جديد</a></li>--}}
                     </ul>
                 </li>
                 <li class="submenu">
@@ -89,12 +93,12 @@
 {{--                        <li><a class="{{ Request::is('statelist') ? 'active' : '' }}" href="{{url('statelist')}}">State list</a></li>--}}
 {{--                    </ul>--}}
 {{--                </li>--}}
-                <li>
-                    <a class="{{ Request::is('components') ? 'active' : '' }}" href="{{url('components')}}" ><i data-feather="layers"></i><span> Components</span> </a>
-                </li>
-                <li>
-                    <a class="{{ Request::is('blankpage') ? 'active' : '' }}" href="{{url('blankpage')}}" ><i data-feather="file"></i><span> Blank Page</span> </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a class="{{ Request::is('components') ? 'active' : '' }}" href="{{url('components')}}" ><i data-feather="layers"></i><span> Components</span> </a>--}}
+{{--                </li>--}}
+{{--                <li>--}}
+{{--                    <a class="{{ Request::is('blankpage') ? 'active' : '' }}" href="{{url('blankpage')}}" ><i data-feather="file"></i><span> Blank Page</span> </a>--}}
+{{--                </li>--}}
 {{--                <li  class="submenu">--}}
 {{--                    <a class="{{ Request::is('error-404','error-500') ? 'active' : '' }}" href="javascript:void(0);"><i data-feather="alert-octagon"></i> <span> Error Pages  </span> <span class="menu-arrow"></span></a>--}}
 {{--                    <ul >--}}

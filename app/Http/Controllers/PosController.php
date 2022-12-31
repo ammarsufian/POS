@@ -9,7 +9,6 @@ use App\Models\CustomerTransaction;
 use App\Models\CustomerType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
 
 class PosController extends Controller
 {

@@ -111,7 +111,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>اسم المنتج</label>
-                                    <input id="search" type="text" autofocus>
+                                    <input id="search" type="text" autofocus autocomplete="off">
                                     <div id="productsDropDownParent" class=w-20">
                                         <div class="d-none" id="productsDropDownMenu"
                                              style="position: absolute;z-index: 8;width:400px;max-width:400px;background-color: #fff">
@@ -186,6 +186,10 @@
                                             <h4>قيمه الفاتوره</h4>
                                             <h5>{{data_get($cart,'total',0)}}</h5>
                                         </li>
+                                        <li>
+                                            <h4>عدد الاصناف</h4>
+                                            <h5 id="cart-items-count">{{data_get($cart,'count',0)}}</h5>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -213,7 +217,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <a id="order-creation-button" class="btn btn-primary">تاكيد الطلب</a>
+                            <a id="order-creation-button" class="btn btn-primary ">تاكيد الطلب</a>
                         </div>
                     </div>
                 </div>
