@@ -28,8 +28,10 @@ Route::post('/product',[ProductController::class,'search']);
 Route::get('/customers',[CustomerController::class,'index']);
 Route::post('/customers',[CustomerController::class,'store']);
 Route::post('active_customer',[CustomerController::class,'activeCustomer']);
-Route::post('pay-invoice',[CustomerTransactionController::class,'payDebitInvoice']);
 Route::post('customer',[CustomerController::class,'search']);
+
+Route::post('/pay-on-account/{customer}',[CustomerTransactionController::class,'payDebitInvoice'])->name('pay-on-account');
+
 Route::post('/cart/deleteItemById',[CartItemController::class,'deleteItemById']);
 Route::post('/cart/addItemToCart',[CartItemController::class,'store']);
 Route::post('/order', [OrderController::class, 'store'])->name('create-order');

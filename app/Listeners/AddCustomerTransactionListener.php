@@ -25,6 +25,7 @@ class AddCustomerTransactionListener
                 'total' => $orderTotal,
                 'status' => 'paid',
                 'order_id' => $event->order->id,
+                'payment_type' => 'cash'
             ]);
         } else {
             $cash_amount = $this->getCashAmount($orderTotal, $event);
@@ -34,6 +35,7 @@ class AddCustomerTransactionListener
                     'total' => $cash_amount,
                     'status' => 'paid',
                     'order_id' => $event->order->id,
+                    'payment_type' => 'cash'
                 ]);
             }
             CustomerTransaction::create([

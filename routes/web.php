@@ -35,6 +35,8 @@ Route::post('/add-product', [ProductController::class, 'store'])->name('addProdu
 Route::get('/product-details/{product}', [ProductController::class, 'show'])->name('product-details');
 Route::get('/editproduct/{product}', [ProductController::class, 'edit'])->name('editproduct');
 Route::post('/update-product/{product}', [ProductController::class, 'update'])->name('update-product');
+Route::get('/print-income-invoice/{transaction}',[CustomerTransactionController::class,'printIncomeInvoice'])->name('print-income-invoice');
+
 
 //Customer Management
 Route::post('/customer', [CustomerController::class, 'store'])->name('create-customer');

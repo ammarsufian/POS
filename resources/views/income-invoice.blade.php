@@ -144,7 +144,8 @@
     <div id="logo" class="media" data-src="logo.png" src="./logo.png"></div>
 
 </header>
-<table class="bill-details">
+<br/>
+<table style="font-size: 15pt;font-weight: 400">
     <tbody>
     <tr>
         <th class="center-align" colspan="2"><span class="receipt">خيرات المستنده</span></th>
@@ -152,63 +153,33 @@
     <tr>
         <th class="center-align" colspan="2"><span class="receipt">0797341358</span></th>
     </tr>
-    <br>
-    <br>
     <tr>
-        <th class="center-align" colspan="2"><span class="receipt" style="font-size: 15px" >فاتوره مبيعات</span></th>
-    </tr>
-    <tr rowspan="2">
-        <td>التاريخ : <span>{{\Carbon\Carbon::parse($order->created_at)->format('d/m/Y h:i:s')}}</span></td>
-    </tr>
-    <tr>
-        <td>اسم العميل: <span>{{$customer->name}}</span></td>
-        <td> #<span>{{$order->id}}</span></td>
-    </tr>
-    <tr>
-        <td>طريقه الدفع: <span>{{$order->payment_method === 'cash' ? 'كاش' : 'ذمم'}}</span></td>
-        <td> عدد الاصناف: {{$order->items->sum('quantity')}} </td>
-    </tr>
-    <tr>
+        <th class="center-align" colspan="2"><span class="receipt">سند قبض</span></th>
     </tr>
     </tbody>
 </table>
+<br/>
 
-<table class="items">
-    <thead>
-    <tr>
-        <th class="heading name">الصنف</th>
-        <th class="heading qty">الكميه</th>
-        <th class="heading rate">الحبه</th>
-        <th class="heading amount">المجموع</th>
-    </tr>
-    </thead>
-
+<table style="border: dashed 1px black;border-radius:5%;font-size: 10pt">
     <tbody>
-    @foreach($order->items as $item)
-        <tr style="border-bottom: 1px dashed black">
-            <td class="text-center" style="text-align: center">{{$item->product->name}}</td>
-            <td class="text-center" style="text-align: center">{{$item->quantity}}</td>
-            <td class="text-center" style="text-align: center">{{$item->price}}</td>
-            <td class="text-center" style="text-align: center">{{$item->total}}</td>
-        </tr>
-    @endforeach
-
-    <tr style="padding-top:10px">
-        <th colspan="3"  class="total text">المجموع</th>
-        <th class="total" >{{$order->items->sum('total')}}</th>
+    <tr>
+        <td>التاريخ : <span>{{\Carbon\Carbon::parse($transaction->created_at)->format('d/m/Y h:i:s')}}</span></td>
     </tr>
-    <tr style="padding-top: 10px">
-        <th colspan="3"  class="total text">كاش</th>
-        <th class="total" >{{$order->transactions()->where('payment_type','cash')->sum('total')}}</th>
+    <tr>
+        <td >وصلني من السيد/ه : <span>{{$customer->name}}</span></td>
+        <td> #<span>{{$transaction->id}}</span></td>
     </tr>
-    @if($order->transactions()->where('payment_type','debit')->sum('total') > 0)
-    <tr style="padding-top: 10px">
-        <th colspan="3"  class="total text">ذمم</th>
-        <th class="total" >{{$order->transactions()->where('payment_type','debit')->sum('total')}}</th>
+    <tr style="border-bottom: 1px dashed black">
+        <td> مبلغ وقدره : {{$transaction->total}}</td>
     </tr>
-    @endif
+    <tr style="border-bottom: 1px dashed black">
+        <td> وذلك بموجب : {{$transaction->reason ?? 'دفعه على الحساب'}}</td>
+    </tr>
     </tbody>
 </table>
+<br/>
+<br/>
+
 <section>
     <p style="padding-top:10px;text-align:center">
         شكرا لزيارتكم!

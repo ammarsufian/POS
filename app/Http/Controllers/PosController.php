@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CartResource;
+use App\Models\balance;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\CustomerTransaction;
@@ -20,9 +21,10 @@ class PosController extends Controller
 
         if ($customer) {
             $cart = Cart::where('customer_id', $customer->id)->first();
-            $debit_data =CustomerTransaction::where('customer_id', $customer->id)->where('status', 'pending')->where('payment_type', 'debit');
+            $debit_data = CustomerTransaction::where('customer_id', $customer->id)->where('status', 'pending')->where('payment_type', 'debit');
+            $balance = balance::where('customer_id',$customer->id)->first();
             $debit_attributes = [
-                'debit_amount' => $debit_data ? $debit_data->sum('total') :0,
+                'debit_amount' => $balance->debit ?? 0,
                 'debits_history' => $debit_data->get() ?? null
             ];
         }
