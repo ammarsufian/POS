@@ -42,9 +42,11 @@
                         </div>
                         <div>
                             <div class="page-btn">
-                                <a href="#" id="pay-on-account-btn" class="btn btn-primary"><img
-                                        src="{{ URL::asset('/assets/img/icons/plus.svg')}}" alt="img">اضافه دفعه على
-                                    الحساب</a>
+                                @if(data_get($transactions,'debit_transactions') > 0)
+                                    <a href="#" id="pay-on-account-btn" class="btn btn-primary"><img
+                                            src="{{ URL::asset('/assets/img/icons/plus.svg')}}" alt="img">اضافه دفعه على
+                                        الحساب</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -138,17 +140,16 @@
                     $('#pay-on-account-btn').on('click', function () {
                         $("#pay-on-account-modal").show()
                     })
-                    $("#close").on('click',function(){
+                    $("#close").on('click', function () {
                         $("#pay-on-account-modal").hide()
                     })
-                    $("#submit-payment-on-account-btn").on('click',function (){
+                    $("#submit-payment-on-account-btn").on('click', function () {
                         $.ajax({
                             type: 'POST',
                             url: "{{config('app.url')}}/api/pay-on-account/" + {{$customer->id}},
                             headers: {'Accept': 'Application/json'},
                             data: {"payment_amount": $("#payment-amount").val()},
                             success: function (response) {
-                                console.log(response.transaction.id)
                                 Swal.fire({
                                     icon: 'success',
                                     title: "",

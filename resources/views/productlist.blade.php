@@ -29,18 +29,18 @@
                         </div>
                         <div class="wordset">
                             <ul>
+{{--                                <li>--}}
+{{--                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img--}}
+{{--                                            src="{{ URL::asset('/assets/img/icons/pdf.svg')}}" alt="img"></a>--}}
+{{--                                </li>--}}
                                 <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                            src="{{ URL::asset('/assets/img/icons/pdf.svg')}}" alt="img"></a>
-                                </li>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                    <a href="{{route('export-excel-sheet')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
                                             src="{{ URL::asset('/assets/img/icons/excel.svg')}}" alt="img"></a>
                                 </li>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                            src="{{ URL::asset('/assets/img/icons/printer.svg')}}" alt="img"></a>
-                                </li>
+{{--                                <li>--}}
+{{--                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img--}}
+{{--                                            src="{{ URL::asset('/assets/img/icons/printer.svg')}}" alt="img"></a>--}}
+{{--                                </li>--}}
                             </ul>
                         </div>
                     </div>

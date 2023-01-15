@@ -4,6 +4,7 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ControlPageController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerTransactionController;
+use App\Http\Controllers\ExportProductController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
@@ -35,9 +36,9 @@ Route::post('/add-product', [ProductController::class, 'store'])->name('addProdu
 Route::get('/product-details/{product}', [ProductController::class, 'show'])->name('product-details');
 Route::get('/editproduct/{product}', [ProductController::class, 'edit'])->name('editproduct');
 Route::post('/update-product/{product}', [ProductController::class, 'update'])->name('update-product');
-Route::get('/print-income-invoice/{transaction}',[CustomerTransactionController::class,'printIncomeInvoice'])->name('print-income-invoice');
+Route::get('/print-income-invoice/{transaction}', [CustomerTransactionController::class, 'printIncomeInvoice'])->name('print-income-invoice');
 
-
+Route::get('/export/product', [ExportProductController::class,'export'])->name('export-excel-sheet');
 //Customer Management
 Route::post('/customer', [CustomerController::class, 'store'])->name('create-customer');
 Route::get('/financial-account-details/{customer}', [CustomerTransactionController::class, 'index'])->name('financial-account-details');
@@ -51,11 +52,11 @@ Route::post('/cart', [CartItemController::class, 'store'])->name('addItemToCart'
 //print invoice route
 Route::get('/print/{order}', InvoiceController::class)->name('print-invoice');
 
-Route::get('/customerlist',[CustomerController::class,'webIndex']);
-Route::get('/edit/customer/{customer}',[CustomerController::class,'edit'])->name('editCustomer');
-Route::get('/index', [ControlPageController::class,'index'])->name('index');
-Route::get('/saleslist', [OrderController::class,'index'])->name('saleslist');
-Route::get('/sales-details/{order}',[OrderController::class,'show'])->name('sales-details');
+Route::get('/customerlist', [CustomerController::class, 'webIndex']);
+Route::get('/edit/customer/{customer}', [CustomerController::class, 'edit'])->name('editCustomer');
+Route::get('/index', [ControlPageController::class, 'index'])->name('index');
+Route::get('/saleslist', [OrderController::class, 'index'])->name('saleslist');
+Route::get('/sales-details/{order}', [OrderController::class, 'show'])->name('sales-details');
 
 Route::get('/', function () {
     return view('signin');
